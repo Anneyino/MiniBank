@@ -21,6 +21,7 @@ public class Bank {
 		this.setBalance(new DigitMoney());
 	}
 	
+	
 	public Bank(List<Customer> customers,List<Transaction> transacitons ,Manager mana, DigitMoney profits, DigitMoney balance) {
 		this.setCustomerList(customers);
 		this.set_Transaction_List(transacitons);
@@ -28,6 +29,7 @@ public class Bank {
 		this.setProfit(profits);
 		this.setBalance(balance);
 	}
+	
 	
 	public void setCustomerList(List<Customer> customers) {
 		this.customer_list = customers;

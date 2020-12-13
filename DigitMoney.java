@@ -6,6 +6,15 @@ public class DigitMoney {
 	
 	private Currency related_currency; // the current currency of the money
 	
+	public DigitMoney() {
+		this.setCurrency(USDollar.getInstance());
+		this.setMoney_Num(10);
+	}
+	
+	public DigitMoney(double num, Currency curr) {
+		this.setCurrency(curr);
+		this.setMoney_Num(num);
+	}
 	
 	public double getMoney_Num() {
 		return this.money_num;
