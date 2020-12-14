@@ -9,6 +9,7 @@ public class Customer extends User{
 	private List<Transaction> transaction_List;
 	
 	private boolean is_in_debt; // whether the customer is in debt
+	private DigitMoney loan; // the loan of current customer
 	
 	
 	public Customer() {
