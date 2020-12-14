@@ -29,7 +29,11 @@ public class Bank {
 		this.setProfit(profits);
 		this.setBalance(balance);
 	}
-	
+
+	public Bank(DigitMoney profits,DigitMoney balance){
+		this.setProfit(profits);
+		this.setBalance(balance);
+	}
 	
 	public void setCustomerList(List<Customer> customers) {
 		this.customer_list = customers;

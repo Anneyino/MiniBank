@@ -15,7 +15,7 @@ public class DigitMoney {
 		this.setCurrency(curr);
 		this.setMoney_Num(num);
 	}
-	
+
 	public double getMoney_Num() {
 		return this.money_num;
 	}
@@ -35,7 +35,7 @@ public class DigitMoney {
 	// the method to exchange currency
 	public void exchangeTo(Currency targetCurrency) {
 		double num_before = this.getMoney_Num();
-		double num_after = 0;
+		double num_after;
 		// compute the money num after exchange
 		num_after = num_before*targetCurrency.getRate()/this.getCurrency().getRate(); 
 		
@@ -57,7 +57,6 @@ public class DigitMoney {
 		decMoney.exchangeTo(this.getCurrency());
 		if(decMoney.getMoney_Num()<=this.money_num) {
 			this.setMoney_Num(this.money_num-decMoney.getMoney_Num());
-			success = 1;
 		}else {
 			success = 0;
 		}

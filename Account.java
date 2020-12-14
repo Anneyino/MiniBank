@@ -9,7 +9,8 @@ public class Account {
 	private Date start_time; //YYYY-MM-DD, when the account is opened
 	
 	private int type; // 1 for saving account, 2 for checking account
-	
+
+	private int currency;
 	// default constructor
 	public Account() {
 		this.setAccountId(0);
@@ -58,7 +59,7 @@ public class Account {
 	public int getType() {
 		return this.type;
 	}
-	
+
 	// money deposit and withdraw and transfer method
 	
 	public int deposit(DigitMoney money) {
