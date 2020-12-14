@@ -1,7 +1,7 @@
 
 public class USDollar extends Currency{
 	
-	private static USDollar USDollarInstance = new USDollar();
+	private static final USDollar USDollarInstance = new USDollar();
 
 	private USDollar() {
 		super("USDollar",7);

@@ -12,9 +12,7 @@ public abstract class Currency {
     	this.setName(n);
     	this.setRate(rate);
     }
-    
-    
-    
+
     public void setName(String n) {
     	this.currency_name = n;
     }
