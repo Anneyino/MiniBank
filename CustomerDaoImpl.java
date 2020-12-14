@@ -18,18 +18,25 @@ public class CustomerDaoImpl implements CustomerDao {
                 boolean inDebt=rs.getInt("in_debt")==1;
                 double loan=rs.getDouble("loan");   //not used?
                 int currency=rs.getInt("currency");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 result=new Customer(name,loggingID,password,"random place");
                 result.set_Is_In_Debt(inDebt);
             }

@@ -19,18 +19,25 @@ public class BankDaoImpl implements BankDao {
                 double profit=rs.getDouble("profit");
                 double balance=rs.getDouble("balance");
                 int currency=rs.getInt("currency");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 result=new Bank(new DigitMoney(profit,currencyWithRate),new DigitMoney(balance,currencyWithRate));
             }
             rs.close();

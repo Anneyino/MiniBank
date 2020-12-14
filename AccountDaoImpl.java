@@ -21,18 +21,26 @@ public class AccountDaoImpl implements AccountDao {
                 double balance=rs.getDouble("balance");
                 int currency=rs.getInt("currency");
                 Date start_time =rs.getDate("start_time");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
 
                 result=new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type);
             }
@@ -124,11 +132,18 @@ public class AccountDaoImpl implements AccountDao {
             stmt = c.createStatement();
             account.getBalance().exchangeTo(targetCurrency);
             int currencyType=0;
-            switch (targetCurrency.getName()){
-                case "USDollar"->currencyType=1;
-                case "EuroDollar"->currencyType=2;
-                case "CHYen"->currencyType=3;
+            if(targetCurrency.getName().equals("USDollar")) {
+            	currencyType = 1;
+            }else if(targetCurrency.getName().equals("EuroDollar")) {
+            	currencyType = 2;
+            }else if(targetCurrency.getName().equals("CHYen")) {
+            	currencyType = 3;
             }
+//            switch (targetCurrency.getName()){
+//                case "USDollar"->currencyType=1;
+//                case "EuroDollar"->currencyType=2;
+//                case "CHYen"->currencyType=3;
+//            }
             stmt.executeUpdate( "UPDATE Account SET balance="+account.getBalance().getMoney_Num()+" WHERE aid="+AID+";" );
             stmt.executeUpdate( "UPDATE Account SET currency="+currencyType+" WHERE aid="+AID+";" );
             c.commit();

@@ -22,18 +22,27 @@ public class TransactionDaoImpl implements TransactionDao{
                 int money=rs.getInt("money");
                 int currency=rs.getInt("currency");
                 java.util.Date date = rs.getDate("time");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+                
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
@@ -65,18 +74,27 @@ public class TransactionDaoImpl implements TransactionDao{
                 int currency=rs.getInt("currency");
                 int aid2=rs.getInt("aid2");
                 java.util.Date date = rs.getDate("time");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+                
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
@@ -107,18 +125,27 @@ public class TransactionDaoImpl implements TransactionDao{
                 int currency=rs.getInt("currency");
                 int aid1=rs.getInt("aid1");
                 java.util.Date date = rs.getDate("time");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+                
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid),new DigitMoney(money,currencyWithRate),date));
@@ -150,18 +177,27 @@ public class TransactionDaoImpl implements TransactionDao{
                 int currency=rs.getInt("currency");
                 int aid1=rs.getInt("aid1");
                 int aid2=rs.getInt("aid2");
-                Currency currencyWithRate;
-                switch (currency){
-                    case 1->{
-                        currencyWithRate=USDollar.getInstance();
-                    }
-                    case 2->{
-                        currencyWithRate=EuroDollar.getInstance();
-                    }
-                    default->{
-                        currencyWithRate=CHYen.getInstance();
-                    }
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
                 }
+                
+//                switch (currency){
+//                    case 1->{
+//                        currencyWithRate=USDollar.getInstance();
+//                    }
+//                    case 2->{
+//                        currencyWithRate=EuroDollar.getInstance();
+//                    }
+//                    default->{
+//                        currencyWithRate=CHYen.getInstance();
+//                    }
+//                }
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),datetime));
