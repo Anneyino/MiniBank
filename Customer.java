@@ -28,6 +28,19 @@ public class Customer extends User{
 		this.set_Is_In_Debt(false); // the customer is not in debt when they sign up for our bank
 	}
 	
+	public Customer(String n, String id, String pw, String addr, DigitMoney l) {
+		super(n,id,pw);
+		this.setAddress(addr);
+		this.setAccount_List(new ArrayList<Account>());
+		this.setTransaction_List(new ArrayList<Transaction>());
+		if(l.getMoney_Num()>0) {
+			this.set_Is_In_Debt(true);
+		}else {
+			this.set_Is_In_Debt(false);
+		}
+		this.setLoan(l);
+	}
+	
 	
 	public void setAddress(String addr) {
 		this.address = addr;
@@ -73,5 +86,12 @@ public class Customer extends User{
 		return this.is_in_debt;
 	}
 	
+	public void setLoan(DigitMoney l) {
+		this.loan = l;
+	}
+	
+	public DigitMoney getLoan() {
+		return this.loan;
+	}
 
 }
