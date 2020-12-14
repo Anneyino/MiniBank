@@ -11,7 +11,7 @@ public class BankDaoImpl implements BankDao {
         Bank result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM Bank WHERE bid="+bid+";" );

@@ -14,7 +14,7 @@ public class TransactionDaoImpl implements TransactionDao{
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid1="+aid1+" and aid2="+aid2+";" );
@@ -65,7 +65,7 @@ public class TransactionDaoImpl implements TransactionDao{
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid1="+aid+";" );
@@ -116,7 +116,7 @@ public class TransactionDaoImpl implements TransactionDao{
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid2="+aid+";" );
@@ -168,7 +168,7 @@ public class TransactionDaoImpl implements TransactionDao{
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE time="+(java.sql.Date)datetime+";" );

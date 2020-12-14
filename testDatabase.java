@@ -6,7 +6,7 @@ public class testDatabase {
 	    Connection c = null;
 	    try {
 	      Class.forName("org.sqlite.JDBC");
-	      c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+	      c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
 	    } catch ( Exception e ) {
 	      System.err.println( e.getClass().getName() + ": " + e.getMessage() );
 	      System.exit(0);

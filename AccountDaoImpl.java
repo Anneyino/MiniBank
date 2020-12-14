@@ -10,7 +10,7 @@ public class AccountDaoImpl implements AccountDao {
         Account result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM Account WHERE aid="+AID+";" );
@@ -61,7 +61,7 @@ public class AccountDaoImpl implements AccountDao {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             account.getBalance().add(money);
@@ -82,7 +82,7 @@ public class AccountDaoImpl implements AccountDao {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             account.getBalance().decrease(money);
@@ -104,7 +104,7 @@ public class AccountDaoImpl implements AccountDao {
         Statement stmt = null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             account1.getBalance().decrease(money);
@@ -127,7 +127,7 @@ public class AccountDaoImpl implements AccountDao {
         Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             account.getBalance().exchangeTo(targetCurrency);

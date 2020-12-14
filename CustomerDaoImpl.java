@@ -8,7 +8,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM Customer WHERE loggingID="+loggingID+";" );
@@ -16,7 +16,8 @@ public class CustomerDaoImpl implements CustomerDao {
                 String name = rs.getString("name");
                 String password=rs.getString("password");
                 boolean inDebt=rs.getInt("in_debt")==1;
-                double loan=rs.getDouble("loan");   //not used?
+                double loan=rs.getDouble("loan");
+                String addr=rs.getString("address");
                 int currency=rs.getInt("currency");
                 Currency currencyWithRate = null;
                 if(currency==1) {
@@ -37,8 +38,8 @@ public class CustomerDaoImpl implements CustomerDao {
 //                        currencyWithRate=CHYen.getInstance();
 //                    }
 //                }
-                result=new Customer(name,loggingID,password,"random place");
-                result.set_Is_In_Debt(inDebt);
+                result=new Customer(name,loggingID,password,addr,new DigitMoney(loan,currencyWithRate));
+                //result.set_Is_In_Debt(inDebt);
             }
             rs.close();
             stmt.close();
@@ -58,7 +59,7 @@ public class CustomerDaoImpl implements CustomerDao {
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             stmt.executeUpdate( "UPDATE Customer SET password="+password+" WHERE loggingID="+loggingID+";" );

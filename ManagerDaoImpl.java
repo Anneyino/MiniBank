@@ -11,7 +11,7 @@ public class ManagerDaoImpl implements ManagerDao {
         Manager result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             ResultSet rs = stmt.executeQuery( "SELECT * FROM Manager WHERE loggingID="+loggingID+";" );
@@ -37,7 +37,7 @@ public class ManagerDaoImpl implements ManagerDao {
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
-            c = DriverManager.getConnection("jdbc:sqlite:identifier.sqlite");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
             stmt = c.createStatement();
             stmt.executeUpdate( "UPDATE Manager SET password="+password+" WHERE loggingID="+loggingID+";" );
