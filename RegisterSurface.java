@@ -1,4 +1,4 @@
-// register panel
+// sign in panel
 
 import java.awt.EventQueue;
 
