@@ -49,4 +49,24 @@ public class ManagerDaoImpl implements ManagerDao {
             System.exit(0);
         }
     }
+
+    @Override
+    public void insert(String name, String loggingID, String password) {
+        Connection c;
+        Statement stmt;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            stmt = c.createStatement();
+            stmt.executeUpdate( "INSERT INTO Manager (Name,loggingID,password)"
+                    +"VALUES ("+name+","+loggingID+","+password+");" );
+            c.commit();
+            stmt.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+    }
 }
