@@ -73,7 +73,7 @@ public class ManagerSurface extends JFrame {
 		transButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new AccountsChart().setVisible(true);
+				new ManagerTransactionQuery().setVisible(true);
 			}
 		});
 		
