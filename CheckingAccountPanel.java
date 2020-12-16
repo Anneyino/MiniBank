@@ -74,8 +74,8 @@ public class CheckingAccountPanel extends JFrame {
 
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
-				
 			}
 		});
 		
@@ -86,6 +86,7 @@ public class CheckingAccountPanel extends JFrame {
 		takeButton.setFocusPainted(true);
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
 				
 			}

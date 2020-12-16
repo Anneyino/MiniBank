@@ -54,6 +54,7 @@ public class UserSurface extends JFrame {
 		checkingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+				new CheckingAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -66,7 +67,7 @@ public class UserSurface extends JFrame {
 		savingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				new SavingAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -77,7 +78,7 @@ public class UserSurface extends JFrame {
 		newAccountButton.setFocusPainted(true);
 		newAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				new NewAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -90,7 +91,8 @@ public class UserSurface extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				
+				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
+				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
 			}		
 		});
 		
