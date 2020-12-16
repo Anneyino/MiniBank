@@ -91,8 +91,8 @@ public class UserSurface extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
+				String type = JOptionPane.showInputDialog(null, "Input currency type", "loan currency", JOptionPane.INFORMATION_MESSAGE);
+				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "loan currency", JOptionPane.INFORMATION_MESSAGE);
 			}		
 		});
 		

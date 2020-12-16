@@ -86,7 +86,7 @@ public class CheckingAccountPanel extends JFrame {
 		takeButton.setFocusPainted(true);
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
+				String type = JOptionPane.showInputDialog(null, "Input currency type", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
 				
 			}
