@@ -55,7 +55,11 @@ public class UserSurface extends JFrame {
 		checkingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+<<<<<<< HEAD
 				new CheckingAccountPanel(customer).setVisible(true);
+=======
+				new ChooseAccountPanel(customer, checking).setVisible(true);
+>>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
 			}
 		});
 		
@@ -68,7 +72,11 @@ public class UserSurface extends JFrame {
 		savingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
+<<<<<<< HEAD
 				new SavingAccountPanel(customer).setVisible(true);
+=======
+				new ChooseAccountPanel(customer, saving).setVisible(true);
+>>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
 			}
 		});
 		
@@ -83,6 +91,20 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
+<<<<<<< HEAD
+=======
+		JButton transferButton = new JButton("Transfer"); // transfer
+		transferButton.setBackground(new Color(221, 160, 221));
+		transferButton.setForeground(new Color(0, 0, 0));
+		transferButton.setBorderPainted(true);
+		transferButton.setFocusPainted(true);
+		transferButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new ChooseAccountPanel(customer).setVisible(true);
+			}
+		});
+		
+>>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
 		JButton loanButton = new JButton("Loan"); // loan
 		loanButton.setBackground(new Color(255, 204, 153));
 		loanButton.setBorderPainted(true);
@@ -110,12 +132,19 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
+<<<<<<< HEAD
 		JButton transButton = new JButton("Query Transactions"); // query transaction complete
 		transButton.setBackground(new Color(153, 255, 204));
 		transButton.setBorderPainted(true);
 		transButton.setFocusPainted(true);
+=======
+		JButton queryButton = new JButton("Query Transactions"); // query transaction complete
+		queryButton.setBackground(new Color(153, 255, 204));
+		queryButton.setBorderPainted(true);
+		queryButton.setFocusPainted(true);
+>>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
 		
-		transButton.addActionListener(new ActionListener() {
+		queryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				UserTransactionQuery query = new UserTransactionQuery(customer);
 				query.setVisible(true);
@@ -146,7 +175,8 @@ public class UserSurface extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(newAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(savingAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(checkingAccountButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE))
+						.addComponent(checkingAccountButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+						.addComponent(transferButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addGap(250))
 				
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
@@ -154,13 +184,14 @@ public class UserSurface extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 							.addComponent(loanButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 							.addComponent(changeCodeButton, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
+							.addComponent(queryButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 							.addComponent(exitButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
 					.addGap(50)))
 				
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 						.addContainerGap(100, Short.MAX_VALUE)
 						.addComponent(label)
-						.addComponent(transButton)
+						
 						.addGap(140))
 		);
 		gl_contentPane.setVerticalGroup(
@@ -173,18 +204,21 @@ public class UserSurface extends JFrame {
 					.addGap(15)
 					.addComponent(savingAccountButton)
 					.addGap(15)
-					.addComponent(newAccountButton))
+					.addComponent(newAccountButton)
+					.addGap(15)
+					.addComponent(transferButton))
+					
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addGap(75)
 					.addComponent(loanButton)
 					.addGap(15)
 					.addComponent(changeCodeButton)
 					.addGap(15)
-					.addComponent(exitButton)
-					.addContainerGap())
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(233)
-					.addComponent(transButton))
+					.addComponent(queryButton)
+					.addGap(15)
+					.addComponent(exitButton))
+
+					
 				
 		);
 		contentPane.setLayout(gl_contentPane);
