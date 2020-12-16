@@ -33,7 +33,7 @@ public class LoanPanel extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StoreWithdrawPanel frame = new StoreWithdrawPanel();
+					LoanPanel frame = new LoanPanel(new Customer());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class LoanPanel extends JFrame{
 		});
 	}
 
-	public LoanPanel() {
+	public LoanPanel(Customer customer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -84,16 +84,32 @@ public class LoanPanel extends JFrame{
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(jr1.isSelected())
-				{
+				{ //CHY
+				  String value_str = amountText.getText();
+				  double amount_value = Double.valueOf(value_str);
+				  OpenAccountController openaccountController = new OpenAccountController();
+				  DigitMoney loanmoney = new DigitMoney(amount_value,CHYen.getInstance());
+				  int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
+				  
 					
 				}
 				else if(jr2.isSelected())
-				{
+				{ //USD
+					String value_str = amountText.getText();
+					double amount_value = Double.valueOf(value_str);
+					OpenAccountController openaccountController = new OpenAccountController();
+					DigitMoney loanmoney = new DigitMoney(amount_value,USDollar.getInstance());
+					int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
 					
 				}
 				else if(jr3.isSelected())
-				{
-					
+				{ //EUR
+					String value_str = amountText.getText();
+					double amount_value = Double.valueOf(value_str);
+					OpenAccountController openaccountController = new OpenAccountController();
+					DigitMoney loanmoney = new DigitMoney(amount_value,EuroDollar.getInstance());
+					int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
+				
 				}
 			}
 		});
@@ -105,11 +121,11 @@ public class LoanPanel extends JFrame{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new UserSurface().setVisible(true);
+				new UserSurface(customer).setVisible(true);
 			}
 		});
 
-        GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
     			gl_contentPane.createParallelGroup(Alignment.LEADING)
     				.addGroup(gl_contentPane.createSequentialGroup()
@@ -139,7 +155,7 @@ public class LoanPanel extends JFrame{
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(10)
+					.addGap(20)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGap(50)
 						.addComponent(jr1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -147,16 +163,16 @@ public class LoanPanel extends JFrame{
 						.addComponent(jr2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGap(50)
 						.addComponent(jr3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(amountLabel)
-								.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(100))
-					.addGap(167))
+						.addGap(50)
+			
+						.addComponent(amountLabel)
+						.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(100))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label))
-					.addGap(30)
+					.addGap(100)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGap(150)
+						.addGap(250)
 						.addComponent(confirmButton)
 						.addComponent(cancelButton))
 					
