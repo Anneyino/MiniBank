@@ -63,7 +63,7 @@ public class AccountsChart extends JFrame
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		JLabel nameLabel = new JLabel("User Name");
+		JLabel nameLabel = new JLabel("User ID");
 		nameLabel.setFont(new Font("", Font.PLAIN, 18));
 				
 		JButton queryButton = new JButton("Query");
@@ -74,6 +74,53 @@ public class AccountsChart extends JFrame
 		name = new JTextField();
 		name.setFont(new Font("", Font.PLAIN, 18));
 		name.setOpaque(false);
+		
+		
+		JScrollPane scrollPane = new JScrollPane();
+		table = new JTable();
+		table.setPreferredScrollableViewportSize(new Dimension(400, 300));
+		table.setBackground(new Color(250, 235, 215));
+		table.setFont(new Font("", Font.PLAIN, 16));
+		
+		
+		// need to get the header to String[] and value of every accounts to Object[][]
+		table.setModel(new DefaultTableModel(
+			new Object[][] {
+			},
+			new String[] {
+					"name", "loggingID", "address", "loan"
+			}
+		) 
+				);
+		scrollPane.setViewportView(table);
+		
+		
+		queryButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				String uid_str = name.getText();
+				int uid = Integer.valueOf(uid_str);
+				
+				InquiryController inquiry = new InquiryController();
+				Customer selectedCustomer = inquiry.showCustomer(uid);
+				
+				String[][] attrs = new String[1][4];
+				attrs[0][0] = selectedCustomer.getName();
+				attrs[0][1] = selectedCustomer.getLoggingID();
+				attrs[0][2] = selectedCustomer.getAddress();
+				attrs[0][3] = selectedCustomer.getLoan().toString();
+				System.out.println(attrs[0][3]);
+				table.setModel(new DefaultTableModel(
+						attrs,
+						new String[] {
+							"name", "loggingID", "address", "loan"
+						}
+					) 
+							);
+				
+			}
+		});
+		
 		
 		
 		JButton cancelButton = new JButton("Cancel");
@@ -88,22 +135,7 @@ public class AccountsChart extends JFrame
 			}
 		});
 		
-		JScrollPane scrollPane = new JScrollPane();
-		table = new JTable();
-		table.setPreferredScrollableViewportSize(new Dimension(400, 300));
-		table.setBackground(new Color(250, 235, 215));
-		table.setFont(new Font("", Font.PLAIN, 16));
-		
-		// need to get the header to String[] and value of every accounts to Object[][]
-		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"1", "2", "3", "4", "5", "6"
-			}
-		) 
-				);
-		scrollPane.setViewportView(table);
+		//
 
 		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);

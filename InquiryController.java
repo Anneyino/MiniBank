@@ -81,6 +81,16 @@ public class InquiryController {
 			
 			return accountlist;
 		}
+		
+		// method to get bank's balance
+		public Bank getTheBank() {
+			
+			BankDaoImpl bankDao = new BankDaoImpl();
+			Bank theBank = bankDao.getBank();
+			
+			return theBank;
+			
+		}
 	
 
 }

@@ -64,7 +64,10 @@ public class DigitMoney {
 	}
 	
 	public String toString() {
-		String num = String.valueOf(money_num);
+		
+//		String num = String.valueOf(money_num);
+		
+		String num = String.format("%.1f", money_num);
 		
 		if(this.getCurrency() instanceof CHYen) {
 			num = "Y"+num; 

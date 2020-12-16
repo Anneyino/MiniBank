@@ -12,17 +12,24 @@ public class testDatabase {
 	    	Class.forName("org.sqlite.JDBC");
 	      	c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
 	      	
+	      	
+	      	InquiryController inquiry = new InquiryController();
+			Customer selectedCustomer = inquiry.showCustomer(11);
+			selectedCustomer.getLoan().getCurrency();
+			String str = selectedCustomer.getLoan().toString();
+	      	System.out.println(str);
+	      	
 	     // create bank operation object 
-			BankDaoImpl bankDao = new BankDaoImpl();
-					
-					
-			// increase the balance of the bank
-			bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
-			
-			
-			CustomerDaoImpl customerdao = new CustomerDaoImpl();
-			customerdao.addLoan(6, new DigitMoney(10,CHYen.getInstance()));
-			
+//			BankDaoImpl bankDao = new BankDaoImpl();
+//					
+//					
+//			// increase the balance of the bank
+//			bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
+//			
+//			
+//			CustomerDaoImpl customerdao = new CustomerDaoImpl();
+//			customerdao.addLoan(6, new DigitMoney(10,CHYen.getInstance()));
+//			
 			
 //			ManagerDaoImpl manage = new ManagerDaoImpl();
 //			manage.insert("admin", "admin", "123456");
