@@ -29,14 +29,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
 
@@ -67,14 +68,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -104,14 +106,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -141,14 +144,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
 
@@ -179,14 +183,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),datetime));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -203,9 +208,9 @@ public class TransactionDaoImpl implements TransactionDao{
                 currencyType = 1;
             }else if(money.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else if(money.getCurrency().getName().equals("CHYen")) {
+            }else {
                 currencyType = 3;
-            }else {currencyType=3;}
+            }
             PreparedStatement ps=c.prepareStatement("INSERT INTO \"Transaction\" (aid1,aid2,money,currency,time) VALUES (?,?,?,?,?)");
             ps.setInt(1,aid1);
             ps.setInt(2,aid2);
@@ -217,6 +222,7 @@ public class TransactionDaoImpl implements TransactionDao{
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
 
     }
@@ -250,14 +256,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                     currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -288,14 +295,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                     currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -326,14 +334,15 @@ public class TransactionDaoImpl implements TransactionDao{
                 }else if(currency==3) {
                     currencyWithRate=CHYen.getInstance();
                 }
+                rs.close();
+                c.close();
                 AccountDao accountDao=new AccountDaoImpl();
 
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
-            rs.close();
-            c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
