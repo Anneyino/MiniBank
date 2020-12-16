@@ -22,7 +22,7 @@ public class CheckingAccountPanel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					CheckingAccountPanel frame = new CheckingAccountPanel(new Customer());
+					CheckingAccountPanel frame = new CheckingAccountPanel(new Customer(), new Account());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class CheckingAccountPanel extends JFrame {
 		});
 	}
 
-	public CheckingAccountPanel(Customer customer) {
+	public CheckingAccountPanel(Customer customer, Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -58,7 +58,11 @@ public class CheckingAccountPanel extends JFrame {
 				
 				
 				
-//				JOptionPane.showMessageDialog();
+                String balanceStr = account.getBalance().toString();
+				
+				String message = "The balance is "+ balanceStr;
+				
+				JOptionPane.showMessageDialog(null,message);
 			
 			
 			
@@ -74,8 +78,9 @@ public class CheckingAccountPanel extends JFrame {
 
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type = JOptionPane.showInputDialog(null, "Input currency type", "store currency", JOptionPane.INFORMATION_MESSAGE);
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,1);//1 means save money
+				storeWithdraw.setVisible(true);
 			}
 		});
 		
@@ -86,8 +91,9 @@ public class CheckingAccountPanel extends JFrame {
 		takeButton.setFocusPainted(true);
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String type = JOptionPane.showInputDialog(null, "Input currency type", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,2);//2 means withdraw money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});

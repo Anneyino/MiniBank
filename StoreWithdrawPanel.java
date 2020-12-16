@@ -33,7 +33,7 @@ public class StoreWithdrawPanel extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					StoreWithdrawPanel frame = new StoreWithdrawPanel();
+					StoreWithdrawPanel frame = new StoreWithdrawPanel(new Customer(),new Account(),1);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class StoreWithdrawPanel extends JFrame{
 		});
 	}
 
-	public StoreWithdrawPanel() {
+	public StoreWithdrawPanel(Customer customer,Account account,int saveOrwithdraw) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -52,7 +52,19 @@ public class StoreWithdrawPanel extends JFrame{
 		setContentPane(contentPane);
 		JLabel label = new JLabel("Store&Withdraw");
 		label.setFont(new Font("", Font.BOLD, 25));
-
+        
+		
+//		jr1.setBackground(null);
+//		jr1.setBorderPainted(false);
+//		jr1.setFocusPainted(false);
+//		jr2.setBackground(null);
+//		jr2.setBorderPainted(false);
+//		jr2.setFocusPainted(false);
+//		jr3.setBackground(null);
+//		jr3.setBorderPainted(false);
+//		jr3.setFocusPainted(false);
+		
+		
         ButtonGroup bg = new ButtonGroup();
         bg.add(jr1);
         bg.add(jr2);
@@ -87,14 +99,46 @@ public class StoreWithdrawPanel extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(jr1.isSelected())
 				{
+					//CHY
+					  String value_str = amountText.getText();
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,CHYen.getInstance());
+					  if(saveOrwithdraw==1) {
+						  openaccountController.DepositMoney(account.getAccountId(), deltamoney); // save the money
+					  }else if(saveOrwithdraw==2) {
+						  openaccountController.WithDrawMoney(account.getAccountId(), deltamoney);// withdraw money
+					  }
 					
 				}
 				else if(jr2.isSelected())
 				{
+					//USD
+					  String value_str = amountText.getText();
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,USDollar.getInstance());
+					  if(saveOrwithdraw==1) {
+						  openaccountController.DepositMoney(account.getAccountId(), deltamoney); // save the money
+					  }else if(saveOrwithdraw==2) {
+						  openaccountController.WithDrawMoney(account.getAccountId(), deltamoney);// withdraw money
+					  }
+
 					
 				}
 				else if(jr3.isSelected())
 				{
+					//EUR
+					  String value_str = amountText.getText();
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,EuroDollar.getInstance());
+					  if(saveOrwithdraw==1) {
+						  openaccountController.DepositMoney(account.getAccountId(), deltamoney); // save the money
+					  }else if(saveOrwithdraw==2) {
+						  openaccountController.WithDrawMoney(account.getAccountId(), deltamoney);// withdraw money
+					  }
+
 					
 				}
 			}
@@ -106,12 +150,14 @@ public class StoreWithdrawPanel extends JFrame{
 		cancelButton.setFocusPainted(true);
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();
 				// return to one of saving/checking account
+				dispose();
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 			}
 		});
 
-		GroupLayout gl_contentPane = new GroupLayout(contentPane);
+        GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
     			gl_contentPane.createParallelGroup(Alignment.LEADING)
     				.addGroup(gl_contentPane.createSequentialGroup()
@@ -141,7 +187,7 @@ public class StoreWithdrawPanel extends JFrame{
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(20)
+					.addGap(10)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGap(50)
 						.addComponent(jr1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -149,16 +195,16 @@ public class StoreWithdrawPanel extends JFrame{
 						.addComponent(jr2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGap(50)
 						.addComponent(jr3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(50)
-			
-						.addComponent(amountLabel)
-						.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGap(100))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+								.addComponent(amountLabel)
+								.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+							.addGap(100))
+					.addGap(167))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label))
-					.addGap(100)
+					.addGap(30)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGap(250)
+						.addGap(150)
 						.addComponent(confirmButton)
 						.addComponent(cancelButton))
 					

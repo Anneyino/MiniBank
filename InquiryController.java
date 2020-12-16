@@ -58,5 +58,30 @@ public class InquiryController {
 		
 		return resultAccount;
 	}
+	
+	//method to get saving account of a customer
+	public List<Account> getSavingAccountOfCustomer(int uid) {
+		List<Account> accountlist = new ArrayList<>();
+		
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		
+		accountlist = accountDao.getSavingAccountList(uid);
+		
+		
+		return accountlist;
+	}
+	
+	//method to get checking account of a customer
+		public List<Account> getCheckingAccountOfCustomer(int uid) {
+			List<Account> accountlist = new ArrayList<>();
+			
+			AccountDaoImpl accountDao = new AccountDaoImpl();
+			
+			accountlist = accountDao.getCheckingAccountList(uid);
+			
+			
+			return accountlist;
+		}
+	
 
 }

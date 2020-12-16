@@ -11,19 +11,42 @@ public class testDatabase {
 	    	Class.forName("org.sqlite.JDBC");
 	      	c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
 	      	
+	      	// public void insert(int uid, int type, DigitMoney balance, java.util.Date startTime)
+	      	
+//	      	CustomerDaoImpl customerDao = new CustomerDaoImpl();
+//			
+//			customerDao.addLoan(7, new DigitMoney(10,CHYen.getInstance()));
+	      	
+//	      	AccountDaoImpl accountDao = new AccountDaoImpl();
+//			
+//			List<Account> accountlist = accountDao.getSavingAccountList(7);
+	      	
+	      	
+	      	DigitMoney money1 = new DigitMoney(10,CHYen.getInstance());
+	      	BankDaoImpl bankDao = new BankDaoImpl();
+	      	double a = bankDao.getBank().getBalance().getMoney_Num();
+	      	// bankDao.updateBalance(new DigitMoney(10,CHYen.getInstance()));
+	      	bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
+	      	double bankbalance = bankDao.getBank().getBalance().getMoney_Num();
+	      	System.out.println(bankbalance);
+	      	
+	      	
+//	      	OpenAccountController Accountcontroller = new OpenAccountController();
+//			Accountcontroller.openZeroAccount(7, 1);
+	      	
 //	      	CustomerDao customerDao1 = new CustomerDaoImpl();
 //			
 //			boolean success = customerDao1.checkThePassword("aaaa", "bbbb");
 	      	
-	      	CustomerDao customerDao=new CustomerDaoImpl();
-	      	boolean flag = customerDao.checkThePassword("songboyi", "12345");
-	      	customerDao.getCustomer("songboyi");
+//	      	CustomerDao customerDao=new CustomerDaoImpl();
+//	      	boolean flag = customerDao.checkThePassword("songboyi", "12345");
+//	      	customerDao.getCustomer("songboyi");
 //	        List<Customer> customerlist = customerDao.getAllCustomer();
 	        //LoginController acontroller = new LoginController();
 	        
 	        //acontroller.Login("aaaa", "bbbb");
 //	        System.out.println(customerlist.get(0).getName());
-	        System.out.println(flag);
+//	        System.out.println(flag);
 	//		customerDao.insert("boyi","songboyi2","12345",0,new DigitMoney(0,CHYen.getInstance()),"Earth");
 			//customerDao.insert("jiatong","jiatong","12345",0,new DigitMoney(0,CHYen.getInstance()),"Mars");
 	      	//BankDao bankDao=new BankDaoImpl();

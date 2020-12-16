@@ -49,6 +49,8 @@ public class ManagerSurface extends JFrame {
 		accountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				AccountsChart accountChart = new AccountsChart();
+				accountChart.setVisible(true);
 				// new NewAccountPanel().setVisible(true);
 			}
 		});
@@ -77,7 +79,7 @@ public class ManagerSurface extends JFrame {
 			}
 		});
 		
-		JButton exitButton = new JButton("Log Out");
+		JButton exitButton = new JButton("Log Out"); // complete log out
 		exitButton.setBackground(new Color(255, 239, 213));
 		exitButton.setBorderPainted(true);
 		exitButton.setFocusPainted(true);
@@ -86,8 +88,9 @@ public class ManagerSurface extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-//				NewAccountPanel mainFrame = new NewAccountPanel();
-//				mainFrame.setVisible(true);
+				ManagerLoginPanel managerLogin = new ManagerLoginPanel();
+				managerLogin.setVisible(true);
+				
 			}
 		});
 		

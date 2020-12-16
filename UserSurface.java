@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.Color;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class UserSurface extends JFrame {
@@ -46,7 +47,7 @@ public class UserSurface extends JFrame {
 		JLabel label = new JLabel("User Surface"); // head label
 		label.setFont(new Font("", Font.BOLD, 25));
 		
-		JButton checkingAccountButton = new JButton("Checking Account");//checking account
+		JButton checkingAccountButton = new JButton("Checking Account");//checking account complete!
 		checkingAccountButton.setBackground(new Color(204, 204, 255));
 		checkingAccountButton.setBorderPainted(true);
 		checkingAccountButton.setFocusPainted(true);
@@ -54,16 +55,16 @@ public class UserSurface extends JFrame {
 		// checking account
 		checkingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			{
-<<<<<<< HEAD
-				new CheckingAccountPanel(customer).setVisible(true);
-=======
-				new ChooseAccountPanel(customer, checking).setVisible(true);
->>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
+			{   
+				dispose();
+				InquiryController inquiryControl = new InquiryController();
+				List<Account> checkingAccountlist = inquiryControl.getCheckingAccountOfCustomer(customer.getUid());
+				
+				new ChooseAccountPanel(customer, checkingAccountlist,0).setVisible(true); // 0 means not transfer, withdraw or save
 			}
 		});
 		
-		JButton savingAccountButton = new JButton("Saving Account");//saving account
+		JButton savingAccountButton = new JButton("Saving Account");//saving account complete!
 		savingAccountButton.setBackground(new Color(135, 206, 250));
 		savingAccountButton.setBorderPainted(true);
 		savingAccountButton.setFocusPainted(true);
@@ -71,16 +72,15 @@ public class UserSurface extends JFrame {
 		// saving account
 		savingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
-			{
-<<<<<<< HEAD
-				new SavingAccountPanel(customer).setVisible(true);
-=======
-				new ChooseAccountPanel(customer, saving).setVisible(true);
->>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
+			{   
+				dispose();
+				InquiryController inquiryControl = new InquiryController();
+				List<Account> savingAccountlist = inquiryControl.getSavingAccountOfCustomer(customer.getUid());
+				new ChooseAccountPanel(customer, savingAccountlist,0).setVisible(true); // 0 means not transfer, withdraw or save
 			}
 		});
 		
-		JButton newAccountButton = new JButton("New Account"); // register complete
+		JButton newAccountButton = new JButton("New Account"); // register complete!
 		newAccountButton.setBackground(new Color(221, 160, 221));
 		newAccountButton.setForeground(new Color(0, 0, 0));
 		newAccountButton.setBorderPainted(true);
@@ -91,21 +91,21 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
-<<<<<<< HEAD
-=======
-		JButton transferButton = new JButton("Transfer"); // transfer
+		JButton transferButton = new JButton("Transfer"); // transfer complete!
 		transferButton.setBackground(new Color(221, 160, 221));
 		transferButton.setForeground(new Color(0, 0, 0));
 		transferButton.setBorderPainted(true);
 		transferButton.setFocusPainted(true);
 		transferButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new ChooseAccountPanel(customer).setVisible(true);
+				dispose();
+				InquiryController inquiryControl = new InquiryController();
+				List<Account> Accountlist = inquiryControl.getAccountOfCustomer(customer.getUid());
+				new ChooseAccountPanel(customer,Accountlist,1).setVisible(true); // 1 means transfer
 			}
 		});
 		
->>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
-		JButton loanButton = new JButton("Loan"); // loan
+		JButton loanButton = new JButton("Loan"); // loan complete!
 		loanButton.setBackground(new Color(255, 204, 153));
 		loanButton.setBorderPainted(true);
 		loanButton.setFocusPainted(true);
@@ -120,7 +120,7 @@ public class UserSurface extends JFrame {
 			}		
 		});
 		
-		JButton changeCodeButton = new JButton("Change Password"); // change password complete
+		JButton changeCodeButton = new JButton("Change Password"); // change password complete!
 		changeCodeButton.setBackground(new Color(153, 255, 204));
 		changeCodeButton.setBorderPainted(true);
 		changeCodeButton.setFocusPainted(true);
@@ -132,17 +132,10 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
-<<<<<<< HEAD
-		JButton transButton = new JButton("Query Transactions"); // query transaction complete
-		transButton.setBackground(new Color(153, 255, 204));
-		transButton.setBorderPainted(true);
-		transButton.setFocusPainted(true);
-=======
-		JButton queryButton = new JButton("Query Transactions"); // query transaction complete
+		JButton queryButton = new JButton("Query Transactions"); // query transaction complete!
 		queryButton.setBackground(new Color(153, 255, 204));
 		queryButton.setBorderPainted(true);
 		queryButton.setFocusPainted(true);
->>>>>>> 10a1acf731ae3e779d5eaa1e4643cd92477059bb
 		
 		queryButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -151,7 +144,7 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
-		JButton exitButton = new JButton("Exit"); // exit complete
+		JButton exitButton = new JButton("Exit"); // exit complete!
 		exitButton.setBackground(new Color(255, 204, 153));
 		exitButton.setBorderPainted(true);
 		exitButton.setFocusPainted(true);
@@ -161,8 +154,6 @@ public class UserSurface extends JFrame {
 				dispose();
 				UserLoginPanel userlogin = new UserLoginPanel();
 				userlogin.setVisible(true);
-				//NewAccountPanel mainFrame = new NewAccountPanel();
-				//mainFrame.setVisible(true);
 							
 			}
 		});

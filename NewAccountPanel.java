@@ -3,6 +3,7 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.GroupLayout;
@@ -89,7 +90,7 @@ public class NewAccountPanel extends JFrame
 		{
 			
 			public void actionPerformed(ActionEvent e) 
-			{
+			{   JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
 				OpenAccountController Accountcontroller = new OpenAccountController();
 				Accountcontroller.openZeroAccount(customer.getUid(), 1);
 			}

@@ -37,7 +37,7 @@ public class DigitMoney {
 		double num_before = this.getMoney_Num();
 		double num_after;
 		// compute the money num after exchange
-		num_after = num_before*targetCurrency.getRate()/this.getCurrency().getRate(); 
+		num_after = num_before*this.getCurrency().getRate()/targetCurrency.getRate();
 		
 		this.setMoney_Num(num_after);
 		this.setCurrency(targetCurrency);

@@ -28,6 +28,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ChooseAccountPanel extends JFrame 
@@ -47,7 +49,7 @@ public class ChooseAccountPanel extends JFrame
 			{
 				try 
 				{
-					ChooseAccountPanel frame = new ChooseAccountPanel();
+					ChooseAccountPanel frame = new ChooseAccountPanel(new Customer(),new ArrayList<>(),1);
 					frame.setVisible(true);
 				} 
 				catch (Exception e) 
@@ -58,7 +60,7 @@ public class ChooseAccountPanel extends JFrame
 		});
 	}
 
-	public ChooseAccountPanel() {
+	public ChooseAccountPanel(Customer customer,List<Account> accountlist,int transferOrNot) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700,300, 450, 300);
 		contentPane = new JPanel();
@@ -76,7 +78,52 @@ public class ChooseAccountPanel extends JFrame
 		confirmButton.setFocusPainted(true);
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				
 				int row = table.getSelectedRow();
+				// not transfer
+				if(transferOrNot==0) {
+					
+					if(row!=-1) {
+						
+						// get selected account
+						Account selectedAccount = accountlist.get(row);
+						// judge saving or checking
+						if(selectedAccount.getType()==1) {
+							dispose();
+							SavingAccountPanel savingPanel = new SavingAccountPanel(customer, selectedAccount);
+							savingPanel.setVisible(true);
+						}else {
+							dispose();
+							CheckingAccountPanel checkingPanel = new CheckingAccountPanel(customer, selectedAccount);
+							checkingPanel.setVisible(true);
+						}
+						
+					}else {
+						
+						JOptionPane.showMessageDialog(null,"please select an account","message",JOptionPane.ERROR_MESSAGE);
+					}
+				
+					
+				}else if(transferOrNot==1) {
+				 // transfer
+                     if(row!=-1) {
+						
+						// get selected account
+						Account selectedAccount = accountlist.get(row);
+						// judge saving or checking
+						dispose();
+						TransferPanel transferpanel = new TransferPanel(customer,selectedAccount);
+						transferpanel.setVisible(true);
+						
+					}else {
+						
+						JOptionPane.showMessageDialog(null,"please select an account","message",JOptionPane.ERROR_MESSAGE);
+					}
+					
+				}
+				
+				
+				
 			}
 		});
 		
@@ -92,7 +139,7 @@ public class ChooseAccountPanel extends JFrame
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				ManagerSurface mainFrame = new ManagerSurface();
+				UserSurface mainFrame = new UserSurface(customer);
 				mainFrame.setVisible(true);
 			}
 		});
@@ -111,14 +158,59 @@ public class ChooseAccountPanel extends JFrame
 		
 		table.setFont(new Font("", Font.PLAIN, 16));
 		// need to get the header to String[] and value of every accounts to Object[][]
-		table.setModel(new DefaultTableModel(
-			new Object[][] {{"1", "1"},{"2"},{"3"},{"4"}
-			},
-			new String[] {
-				"1", "2", "3", "4", "5", "6"
+		
+		if(!accountlist.isEmpty()) {
+			String[][] account_attrs =  new String[accountlist.size()][4];
+			
+			for(int i =0; i < accountlist.size();i++) {
+				
+				for(int j = 0; j<4 ;j++) {
+					
+					Account a_account =  accountlist.get(i);
+					
+					if(j==0) {
+						account_attrs[i][j] = String.valueOf(a_account.getAccountId());
+					}else if(j==1) {
+						account_attrs[i][j] = a_account.getBalance().toString();
+					}else if(j==2) {
+						if(a_account.getType()==1) {
+							account_attrs[i][j] = "Saving";
+						}else {
+							account_attrs[i][j] = "Checking";
+						}
+						
+					}else if(j==3) {
+						account_attrs[i][j] = a_account.getStartTime().toString();
+
+					}
+					
+					
+				}
+				
 			}
-		) 
-				);
+			
+			table.setModel(new DefaultTableModel(
+					account_attrs,
+					new String[] {
+						"from account", "to account", "money", "date"
+					}
+				) 
+						);
+			
+			
+		}else {
+			table.setModel(new DefaultTableModel(
+					new Object[][] {
+					},
+					new String[] {
+							"from account", "to account", "money", "date"
+					}
+				) 
+						);
+		}
+		
+		
+		
 		scrollPane.setViewportView(table);
 
 		

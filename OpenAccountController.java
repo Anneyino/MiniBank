@@ -26,11 +26,15 @@ public class OpenAccountController {
 		Date currentDate = new Date();
 		DigitMoney starting_money = new DigitMoney(0,USDollar.getInstance());
 		// insert to database
+		System.out.println("test0");
 		accountDao.insert(uid, type, starting_money, currentDate);
+		System.out.println("test1");
 		// take service fee as bank's profit and add to bank's balance
 		BankDaoImpl bankDao = new BankDaoImpl();
 		
 		DigitMoney servicefee = new DigitMoney(10,USDollar.getInstance());
+		
+		System.out.println("test2");
 		
 		bankDao.addBalance(servicefee);
 		bankDao.addProfit(servicefee);

@@ -22,7 +22,7 @@ public class SavingAccountPanel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SavingAccountPanel frame = new SavingAccountPanel(new Customer());
+					SavingAccountPanel frame = new SavingAccountPanel(new Customer(), new Account());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class SavingAccountPanel extends JFrame {
 		});
 	}
 
-	public SavingAccountPanel(Customer customer) {
+	public SavingAccountPanel(Customer customer,Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -55,12 +55,11 @@ public class SavingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				
+				String balanceStr = account.getBalance().toString();
 				
+				String message = "The balance is "+ balanceStr;
 				
-				
-//				JOptionPane.showMessageDialog();
-			
-			
+				JOptionPane.showMessageDialog(null,message);
 			
 			
 			
@@ -76,7 +75,9 @@ public class SavingAccountPanel extends JFrame {
 		// store for saving account
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,1);//1 means save money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});
@@ -90,7 +91,10 @@ public class SavingAccountPanel extends JFrame {
 		// withdraw method for saving account
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
+			   
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,2);//2 means withdraw money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});

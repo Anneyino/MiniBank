@@ -9,7 +9,7 @@ public class BankDaoImpl implements BankDao {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            PreparedStatement ps=c.prepareStatement("SELECT * FROM Bank WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM Bank;");
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 double profit=rs.getDouble("profit");
@@ -81,7 +81,7 @@ public class BankDaoImpl implements BankDao {
             }else if(profit.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET profit=?, currency=? WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET profit=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,profit.getMoney_Num());
             ps.setInt(2,currencyType);
             ps.executeUpdate();
@@ -108,7 +108,7 @@ public class BankDaoImpl implements BankDao {
             }else if(balance.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET balance=?, currency=? WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET balance=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,balance.getMoney_Num());
             ps.setInt(2,currencyType);
             ps.executeUpdate();
@@ -128,6 +128,7 @@ public class BankDaoImpl implements BankDao {
         
         currentProfit.add(deltaMoney);
         
+        
         this.updateProfit(currentProfit);
     	
     }
@@ -138,6 +139,8 @@ public class BankDaoImpl implements BankDao {
         Bank currentBank = this.getBank();
     	
         DigitMoney currentBalance = currentBank.getBalance();
+        
+        System.out.println(deltaMoney.getMoney_Num());
         
         currentBalance.add(deltaMoney);
         

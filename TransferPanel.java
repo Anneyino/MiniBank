@@ -34,7 +34,7 @@ public class TransferPanel extends JFrame{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					TransferPanel frame = new TransferPanel();
+					TransferPanel frame = new TransferPanel(new Customer(),new Account());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -43,7 +43,7 @@ public class TransferPanel extends JFrame{
 		});
 	}
 
-	public TransferPanel() {
+	public TransferPanel(Customer customer, Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -78,7 +78,7 @@ public class TransferPanel extends JFrame{
 		targetText.setFont(new Font("", Font.PLAIN, 18));
 		targetText.setOpaque(false);
 		
-		JLabel amountLabel = new JLabel("Currency value");
+		JLabel amountLabel = new JLabel("Money");
 		amountLabel.setFont(new Font("", Font.PLAIN, 18));
 		
 		JLabel targetLabel = new JLabel("target account ID");
@@ -93,15 +93,37 @@ public class TransferPanel extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				if(jr1.isSelected())
 				{
-					
+					//CHY
+					  String value_str = amountText.getText();
+					  String targetAccount_str = targetText.getText();
+					  int targetId = Integer.valueOf(targetAccount_str);
+					  
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,CHYen.getInstance());
+					  int success =  openaccountController.TransferMoney(account.getAccountId(), targetId, deltamoney);
 				}
 				else if(jr2.isSelected())
 				{
-					
+					  String value_str = amountText.getText();
+					  String targetAccount_str = targetText.getText();
+					  int targetId = Integer.valueOf(targetAccount_str);
+					  
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,USDollar.getInstance());
+					  int success =  openaccountController.TransferMoney(account.getAccountId(), targetId, deltamoney);
 				}
 				else if(jr3.isSelected())
 				{
-					
+					  String value_str = amountText.getText();
+					  String targetAccount_str = targetText.getText();
+					  int targetId = Integer.valueOf(targetAccount_str);
+					  
+					  double amount_value = Double.valueOf(value_str);
+					  OpenAccountController openaccountController = new OpenAccountController();
+					  DigitMoney deltamoney = new DigitMoney(amount_value,EuroDollar.getInstance());
+					  int success =  openaccountController.TransferMoney(account.getAccountId(), targetId, deltamoney);
 				}
 			}
 		});
@@ -113,7 +135,7 @@ public class TransferPanel extends JFrame{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new UserSurface().setVisible(true);
+				new UserSurface(customer).setVisible(true);
 			}
 		});
 
@@ -141,11 +163,6 @@ public class TransferPanel extends JFrame{
     						.addContainerGap(100, Short.MAX_VALUE)
     						.addComponent(label)
     						.addGap(200))
-//    				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-//    						.addContainerGap(50, Short.MAX_VALUE)
-//    						.addComponent(amountLabel)
-//    						.addComponent(amountText)
-//    						.addGap(150))
     		);
         
 		gl_contentPane.setVerticalGroup(
