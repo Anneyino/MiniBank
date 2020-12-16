@@ -204,7 +204,6 @@ public class ManagerTransactionQuery extends JFrame
 						.addComponent(name, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(nameLabel))
 					.addComponent(scrollPane)
-					.addGap(150)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cancelButton))
 					.addGap(30)));
