@@ -27,6 +27,8 @@ public class RegisterSurface extends JFrame
 
 	private JPanel contentPane;
 	private JTextField name;
+	private JTextField loggingID;
+	private JTextField address;
 	private JPasswordField password;
 	private JPasswordField confirmPassword;
 
@@ -60,13 +62,19 @@ public class RegisterSurface extends JFrame
 		setContentPane(contentPane);
 		
 		JLabel nameLabel = new JLabel("Name");
-		nameLabel.setFont(new Font("", Font.PLAIN, 18));
+		nameLabel.setFont(new Font("", Font.PLAIN, 12));
+		
+		JLabel idLabel = new JLabel("Login ID");
+		nameLabel.setFont(new Font("", Font.PLAIN, 12));
+		
+		JLabel addressLabel = new JLabel("Address");
+		nameLabel.setFont(new Font("", Font.PLAIN, 12));
 		
 		JLabel passwordLabel = new JLabel("Password");
-		passwordLabel.setFont(new Font("", Font.PLAIN, 18));
+		passwordLabel.setFont(new Font("", Font.PLAIN, 12));
 		
 		JLabel confirmPasswordLabel = new JLabel("Confirm Password");
-		confirmPasswordLabel.setFont(new Font("", Font.PLAIN, 18));
+		confirmPasswordLabel.setFont(new Font("", Font.PLAIN, 12));
 		
 		JButton confirmButton = new JButton("Confirm");
 		confirmButton.setBackground(new Color(175, 238, 238));
@@ -76,6 +84,14 @@ public class RegisterSurface extends JFrame
 		name = new JTextField();
 		name.setFont(new Font("", Font.PLAIN, 18));
 		name.setOpaque(false);
+		
+		loggingID = new JTextField();
+		loggingID.setFont(new Font("", Font.PLAIN, 18));
+		loggingID.setOpaque(false);
+		
+		address = new JTextField();
+		address.setFont(new Font("", Font.PLAIN, 18));
+		address.setOpaque(false);
 		
 		password = new JPasswordField();
 		password.setFont(new Font("", Font.PLAIN, 18));
@@ -93,6 +109,7 @@ public class RegisterSurface extends JFrame
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				new UserLoginPanel().setVisible(true);
 			}
 		});
 		
@@ -103,9 +120,11 @@ public class RegisterSurface extends JFrame
 				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
 					.addGap(12)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addComponent(passwordLabel)
-						.addComponent(confirmPasswordLabel)
-						.addComponent(nameLabel))
+						.addComponent(passwordLabel, Alignment.TRAILING)
+						.addComponent(confirmPasswordLabel, Alignment.TRAILING)
+						.addComponent(nameLabel, Alignment.TRAILING)
+						.addComponent(idLabel, Alignment.TRAILING)
+						.addComponent(addressLabel, Alignment.TRAILING))
 					.addGap(14)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
 						.addGroup(gl_contentPane.createSequentialGroup()
@@ -114,22 +133,32 @@ public class RegisterSurface extends JFrame
 							.addComponent(cancelButton))
 						.addComponent(confirmPassword, Alignment.TRAILING)
 						.addComponent(password, Alignment.TRAILING)
+						.addComponent(address, Alignment.TRAILING)
+						.addComponent(loggingID, Alignment.TRAILING)
 						.addComponent(name, GroupLayout.PREFERRED_SIZE, 193, GroupLayout.PREFERRED_SIZE))
 					.addPreferredGap(ComponentPlacement.RELATED)
-					.addContainerGap(37, Short.MAX_VALUE))
+					.addContainerGap(7, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(34)
+					.addGap(20)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(name, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(nameLabel))
-					.addGap(26)
+					.addGap(10)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(loggingID, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(idLabel))
+					.addGap(10)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(address, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(addressLabel))
+					.addGap(10)	
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(password, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(passwordLabel))
-					.addGap(26)
+					.addGap(10)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(confirmPassword, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(confirmPasswordLabel))
@@ -137,7 +166,7 @@ public class RegisterSurface extends JFrame
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(confirmButton)
 						.addComponent(cancelButton))
-					.addGap(30))
+					.addGap(15))
 		);
 		//name.addKeyListener(new PasswordText());
 		password.addKeyListener(new PasswordText());
@@ -171,12 +200,14 @@ public class RegisterSurface extends JFrame
 			this.confirmPassword = confirmPassword;
 		}
 		
+		
+
+		// Register for a new user
 		public void actionPerformed(ActionEvent e) 
 		{
 			//Todo
 			LoginController logincontroller = new LoginController();
-			
-			// logincontroller.Signup(name, loggingID, password, inDebt, loanNum, address)
+			//logincontroller.Signup(name, loggingID, password, inDebt, loanNum, address);
 			
 			
 		}

@@ -76,6 +76,18 @@ public class ManagerTransactionQuery extends JFrame
 		name.setOpaque(false);
 		
 		
+		// manager query by enter user's name
+		queryButton.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setBackground(new Color(245, 222, 179));
 		cancelButton.setBorderPainted(true);
@@ -83,6 +95,8 @@ public class ManagerTransactionQuery extends JFrame
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				ManagerSurface mainFrame = new ManagerSurface();
+				mainFrame.setVisible(true);
 			}
 		});
 		

@@ -106,6 +106,18 @@ public class UserSurface extends JFrame {
 			}
 		});
 		
+		JButton transButton = new JButton("Query Transactions");
+		transButton.setBackground(new Color(153, 255, 204));
+		transButton.setBorderPainted(true);
+		transButton.setFocusPainted(true);
+		
+		transButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				UserTransactionQuery query = new UserTransactionQuery();
+				query.setVisible(true);
+			}
+		});
+		
 		JButton exitButton = new JButton("Exit");
 		exitButton.setBackground(new Color(255, 204, 153));
 		exitButton.setBorderPainted(true);
@@ -113,13 +125,8 @@ public class UserSurface extends JFrame {
 
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// StartPanel.userFile.saveFile(StartPanel.list);
-				for(int i = 0;i < StartPanel.list.size();i++)
-				{
-					System.out.println(StartPanel.list.get(i));
-				}
 				dispose();
-				StartPanel mainFrame = new StartPanel();
+				NewAccountPanel mainFrame = new NewAccountPanel();
 				mainFrame.setVisible(true);
 							
 			}
@@ -129,7 +136,7 @@ public class UserSurface extends JFrame {
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(0)
+					.addGap(10)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(newAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(savingAccountButton, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -147,7 +154,8 @@ public class UserSurface extends JFrame {
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 						.addContainerGap(100, Short.MAX_VALUE)
 						.addComponent(label)
-						.addGap(150))
+						.addComponent(transButton)
+						.addGap(140))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -168,6 +176,10 @@ public class UserSurface extends JFrame {
 					.addGap(15)
 					.addComponent(exitButton)
 					.addContainerGap())
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(233)
+					.addComponent(transButton))
+				
 		);
 		contentPane.setLayout(gl_contentPane);
 	}

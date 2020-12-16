@@ -76,6 +76,18 @@ public class UserTransactionQuery extends JFrame
 		name.setOpaque(false);
 		
 		
+		// implement query method. name is input account ID
+		queryButton.addActionListener(new ActionListener()
+				{
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+					}
+					
+				});
+		
+		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setBackground(new Color(245, 222, 179));
 		cancelButton.setBorderPainted(true);
@@ -91,6 +103,7 @@ public class UserTransactionQuery extends JFrame
 		table.setPreferredScrollableViewportSize(new Dimension(400, 300));
 		table.setBackground(new Color(250, 235, 215));
 		table.setFont(new Font("", Font.PLAIN, 16));
+		// get value for table
 		table.setModel(new DefaultTableModel(
 			new Object[][] {
 			},

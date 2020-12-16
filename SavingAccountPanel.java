@@ -49,6 +49,8 @@ public class SavingAccountPanel extends JFrame {
 		seekButton.setBorderPainted(true);
 		seekButton.setFocusPainted(true);
 
+		
+		// query method for saving account
 		seekButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -70,6 +72,8 @@ public class SavingAccountPanel extends JFrame {
 		storeButton.setBorderPainted(true);
 		storeButton.setFocusPainted(true);
 
+		
+		// store for saving account
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
@@ -82,6 +86,8 @@ public class SavingAccountPanel extends JFrame {
 		takeButton.setForeground(new Color(0, 0, 0));
 		takeButton.setBorderPainted(true);
 		takeButton.setFocusPainted(true);
+		
+		// withdraw method for saving account
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
@@ -98,7 +104,7 @@ public class SavingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				StartPanel mainFrame = new StartPanel();
+				NewAccountPanel mainFrame = new NewAccountPanel();
 				mainFrame.setVisible(true);
 							
 			}

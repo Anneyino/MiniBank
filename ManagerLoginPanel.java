@@ -167,17 +167,10 @@ public class ManagerLoginPanel extends JFrame {
 			this.codePassword = codePassword;
 		}
 		
+		
+		// manager login method
 		public void actionPerformed(ActionEvent e) {
-			if(accountText.getText().equals("@123456") && new String(codePassword.getPassword()).equals("123456"))
-			{
-				dispose();
-				ManagerSurface managerSurface = new ManagerSurface();
-				managerSurface.setVisible(true);
-			}
-			else
-			{
-				JOptionPane.showMessageDialog(null,"Wrong password! Please enter again","ERROR",JOptionPane.ERROR_MESSAGE);
-			}
+			
 		}
 	}
 

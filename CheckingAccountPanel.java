@@ -49,6 +49,8 @@ public class CheckingAccountPanel extends JFrame {
 		seekButton.setBorderPainted(true);
 		seekButton.setFocusPainted(true);
 
+		
+		// query method
 		seekButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
@@ -98,7 +100,7 @@ public class CheckingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				StartPanel mainFrame = new StartPanel();
+				NewAccountPanel mainFrame = new NewAccountPanel();
 				mainFrame.setVisible(true);
 							
 			}

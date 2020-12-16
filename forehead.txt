@@ -1,0 +1,35 @@
+StartPanel.java: start panel, 3 bottons. Click Manager to ManagerLoginPanel; User to UserLoginPanel; Quit to quit the program.
+All methods implemented, need double check.
+
+UserLoginPanel.java: panel for users to login and register a new user. Click sign up to RegisterSurface; Login to UserSurface(if success); back to StartPanel
+line 185 need to implement login method.
+
+RegisterSurface.java: line 205, click confirm and register a new user, cancel to UserLoginPanel
+
+UserSurface.java: User panel after login. 7 buttons. Checking Account to CheckingAccountPanel; Saving Account to SavingAccountPanel; New Account to NewAccountPanel;
+Loan show a box to get loan; Change Password to ChangePassword; Query Transactions to UserTransactionQuery; Exit to StartPanel.
+line 90, loan need to implement.
+
+CheckingAccountPanel.java: User's checking account. Query, Store, Withdraw, Logout.
+Line 53 implement query method; Line 77 implement store; Line 87 implement withdraw method; Logout return to StartPanel.
+
+SavingAccountPanel.java: User's saving account. Query, Store, Withdraw, Logout.
+Line 53 implement query method; Line 76 Store; Line 90 Withdraw method need to implement; Logout return to StartPanel.
+
+NewAccountPanel.java: sign up for a new account. 3 buttons, line 70 implement new checking account; line 85 implement new saving account.
+
+ChangePassword.java: panel for changing password. Line 172 need to implement the method.
+
+UserTransactionQuery.java: panel for query a user's transactions. line 79 implement query for account ID; line 94 need to get value for output the table.
+
+ManagerLoginPanel.java: line 171 implement manager login. back to StartPanel.
+
+ManagerSurface.java: 3 buttons, Accounts Information to AccountChart; Bank Overview need new java file; Transaction Information to ManagerTransactionQuery; 
+Logout to StartPanel.
+
+AccountChart.java: show all accounts for all users. line 97 get information about accounts.
+
+ManagerTransactionQuery.java: show all transactions for all users. line 79 implement query by user's name. line 97 get information about accounts.
+
+
+
