@@ -6,7 +6,7 @@ public interface CustomerDao {
     public Customer getCustomerByUid(int uid);
     public List<Customer> getAllCustomer();
     public void changePassword(String loggingID,String password);
-    public void insert(String name,String loggingID,String password, int inDebt, DigitMoney loan, String address);
+    public int insert(String name,String loggingID,String password, int inDebt, DigitMoney loan, String address);
     public void updateTheLoan(String loggingID,DigitMoney loan);
     public void addLoan(int uid,DigitMoney deltaloan);
     public void decLoan(int uid,DigitMoney deltaloan);

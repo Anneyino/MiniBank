@@ -144,9 +144,10 @@ public class CustomerDaoImpl implements CustomerDao {
             System.exit(0);
         }
     }
-
+    // return 1 means ok, 0 means fail to insert, maybe loggingID already exists.
     @Override
-    public void insert(String name, String loggingID, String password, int inDebt, DigitMoney loan, String address) {
+    public int insert(String name, String loggingID, String password, int inDebt, DigitMoney loan, String address) {
+    	int result = 1;
         Connection c;
         try {
             Class.forName("org.sqlite.JDBC");
@@ -172,14 +173,18 @@ public class CustomerDaoImpl implements CustomerDao {
 
                 insert.executeUpdate();
             } catch (SQLException e) {
+            	result = 0;
                 throw new RuntimeException("Cannot insert the customer into SQL Database.", e);
             }
             c.commit();
             c.close();
         } catch ( Exception e ) {
+        	result = 0;
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
+        
+        return result;
     }
 
     @Override

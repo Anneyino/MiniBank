@@ -190,6 +190,8 @@ public class RegisterSurface extends JFrame
 	// confirm listener
 	public class confirmButtonHandler implements ActionListener{
 		private JTextField name;
+		private JTextField address;
+		private JTextField loggingID;
 		private JPasswordField password;
 		private JPasswordField confirmPassword;
 		private int sameChar = 0;

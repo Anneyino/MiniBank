@@ -183,6 +183,23 @@ public class UserLoginPanel extends JFrame {
 		
 		// login method
 		public void actionPerformed(ActionEvent e) {
+			
+			String loggingID = this.accountText.getText();
+			String passwardStr = new String(password.getPassword());
+			
+			LoginController loginController = new LoginController();
+			Customer currentCustomer = loginController.Login(loggingID, passwardStr);
+			
+			if(currentCustomer!=null) {
+				dispose();
+				UserSurface userFrame = new UserSurface(currentCustomer);
+				userFrame.setVisible(true);
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
 			// StartPanel.list = (List<User>) StartPanel.userFile.printFile();
 //			int accountNum = 0;
 //			int passwordNum = 0;

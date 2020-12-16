@@ -33,7 +33,11 @@ public class AccountDaoImpl implements AccountDao {
                 	currencyWithRate=CHYen.getInstance();
                 }
                 if(type==1){
-                    result.add(new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001));
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                    result.add(selectedAccount);
                 }
                 else {
                     result.add(new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01));
@@ -78,7 +82,14 @@ public class AccountDaoImpl implements AccountDao {
                 }
                 
                 if(type==1){
-                    result = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                	
+                    result = selectedAccount;
+                    
                 }
                 else {
                     result= new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01);

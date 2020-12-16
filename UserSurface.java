@@ -19,12 +19,13 @@ public class UserSurface extends JFrame {
 
 	private JPanel contentPane;
 	private static long preMoney = 0;
+	private Customer currentCustomer;
 
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					UserSurface frame = new UserSurface();
+					UserSurface frame = new UserSurface(new Customer());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -33,7 +34,7 @@ public class UserSurface extends JFrame {
 		});
 	}
 
-	public UserSurface() {
+	public UserSurface(Customer customer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -93,6 +94,12 @@ public class UserSurface extends JFrame {
 				// TODO Auto-generated method stub
 				String type = JOptionPane.showInputDialog(null, "Input currency type", "loan currency", JOptionPane.INFORMATION_MESSAGE);
 				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "loan currency", JOptionPane.INFORMATION_MESSAGE);
+				
+				if(type.equals("1")) {
+					
+				}else if(type.equals("2")) {
+					
+				}
 			}		
 		});
 		
@@ -184,5 +191,13 @@ public class UserSurface extends JFrame {
 				
 		);
 		contentPane.setLayout(gl_contentPane);
+	}
+	
+	public void setCustomer(Customer c) {
+		this.currentCustomer = c;
+	}
+	
+	public Customer getCustomer() {
+		return this.currentCustomer;
 	}
 }

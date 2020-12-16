@@ -7,12 +7,13 @@ public class LoginController {
 		
 		CustomerDaoImpl customerDao = new CustomerDaoImpl();
 		
-		customerDao.insert(name, loggingID, password, inDebt, loanMoney, address);
+		int success = customerDao.insert(name, loggingID, password, inDebt, loanMoney, address);
 		
 		
-		return 1;
+		return success;
 	}
 	
+	// return null if logging id and password don't match
 	public Customer Login(String loggingID, String password) {
 		// init the return customer
 		Customer selectedCustomer = null;
