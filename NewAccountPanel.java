@@ -57,7 +57,7 @@ public class NewAccountPanel extends JFrame
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		JLabel label = new JLabel("Welcome to our bank!"); // welcome label
+		JLabel label = new JLabel("New Account"); // new account
 		label.setFont(new Font("", Font.BOLD, 25));
 		JButton checkingButton = new JButton("Checking Account"); // checking account button
 		checkingButton.setBackground(new Color(255, 204, 204));
@@ -109,19 +109,19 @@ public class NewAccountPanel extends JFrame
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.TRAILING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap(377, Short.MAX_VALUE)
+					.addContainerGap(227, Short.MAX_VALUE)
 					.addComponent(exitButton)
-					.addGap(25))
+					.addGap(90))
 				.addGroup(Alignment.LEADING, gl_contentPane.createSequentialGroup()
-					.addGap(176)
+					.addGap(150)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(SavingAccount, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE)
 						.addComponent(checkingButton, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 103, Short.MAX_VALUE))
-					.addGap(186))
+					.addGap(200))
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-						.addContainerGap(100, Short.MAX_VALUE)
+						.addContainerGap(00, Short.MAX_VALUE)
 						.addComponent(label)
-						.addGap(100))
+						.addGap(240))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
