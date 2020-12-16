@@ -35,7 +35,6 @@ public class InquiryController {
 		
 		accountlist = accountDao.getAccountList(uid);
 		
-		
 		return accountlist;
 	}
 	

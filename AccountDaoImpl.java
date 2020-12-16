@@ -35,8 +35,6 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -44,11 +42,11 @@ public class AccountDaoImpl implements AccountDao {
                 }
                 //result.add(new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type));
             }
+            System.out.println("hello");
             rs.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
         return result;
     }
@@ -84,8 +82,6 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -97,7 +93,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
         return result;
     }
@@ -132,8 +127,6 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -145,7 +138,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
         return result;
     }
@@ -199,7 +191,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
         return result;
     }
@@ -222,7 +213,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 
@@ -243,7 +233,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 
@@ -269,7 +258,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 
@@ -299,7 +287,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
 
     }
@@ -316,7 +303,7 @@ public class AccountDaoImpl implements AccountDao {
                 currencyType = 1;
             }else if(balance.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else {
+            }else if(balance.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
             PreparedStatement ps=c.prepareStatement("INSERT INTO Account (uid,type,balance,currency,start_time) VALUES (?,?,?,?,?) ");
@@ -330,7 +317,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 
@@ -358,7 +344,6 @@ public class AccountDaoImpl implements AccountDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
         }
     }
 

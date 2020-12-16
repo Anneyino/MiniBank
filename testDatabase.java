@@ -1,4 +1,5 @@
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -11,24 +12,52 @@ public class testDatabase {
 	    	Class.forName("org.sqlite.JDBC");
 	      	c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
 	      	
+	     // create bank operation object 
+			BankDaoImpl bankDao = new BankDaoImpl();
+					
+					
+			// increase the balance of the bank
+			bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
+			
+			
+			CustomerDaoImpl customerdao = new CustomerDaoImpl();
+			customerdao.addLoan(6, new DigitMoney(10,CHYen.getInstance()));
+			
+			
+//			ManagerDaoImpl manage = new ManagerDaoImpl();
+//			manage.insert("admin", "admin", "123456");
+	      	
 	      	// public void insert(int uid, int type, DigitMoney balance, java.util.Date startTime)
 	      	
 //	      	CustomerDaoImpl customerDao = new CustomerDaoImpl();
 //			
 //			customerDao.addLoan(7, new DigitMoney(10,CHYen.getInstance()));
 	      	
+	      	
+//	      	InquiryController inquiryControl = new InquiryController();
+//			List<Account> Accountlist = inquiryControl.getAccountOfCustomer(7);
+	      	
+	      	List<Account> accountlist = new ArrayList<>();
+			
+			AccountDaoImpl accountDao = new AccountDaoImpl();
+			
+			accountlist = accountDao.getAccountList(7);
+			
+			OpenAccountController controller = new OpenAccountController();
+					
+	      	
 //	      	AccountDaoImpl accountDao = new AccountDaoImpl();
 //			
 //			List<Account> accountlist = accountDao.getSavingAccountList(7);
 	      	
 	      	
-	      	DigitMoney money1 = new DigitMoney(10,CHYen.getInstance());
-	      	BankDaoImpl bankDao = new BankDaoImpl();
-	      	double a = bankDao.getBank().getBalance().getMoney_Num();
-	      	// bankDao.updateBalance(new DigitMoney(10,CHYen.getInstance()));
-	      	bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
-	      	double bankbalance = bankDao.getBank().getBalance().getMoney_Num();
-	      	System.out.println(bankbalance);
+//	      	DigitMoney money1 = new DigitMoney(10,CHYen.getInstance());
+//	      	BankDaoImpl bankDao = new BankDaoImpl();
+//	      	double a = bankDao.getBank().getBalance().getMoney_Num();
+//	      	// bankDao.updateBalance(new DigitMoney(10,CHYen.getInstance()));
+//	      	bankDao.addBalance(new DigitMoney(10,CHYen.getInstance()));
+//	      	double bankbalance = bankDao.getBank().getBalance().getMoney_Num();
+//	      	System.out.println(bankbalance);
 	      	
 	      	
 //	      	OpenAccountController Accountcontroller = new OpenAccountController();

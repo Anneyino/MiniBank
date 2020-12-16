@@ -192,7 +192,7 @@ public class ChooseAccountPanel extends JFrame
 			table.setModel(new DefaultTableModel(
 					account_attrs,
 					new String[] {
-						"from account", "to account", "money", "date"
+						"account id", "money", "type", "date"
 					}
 				) 
 						);
@@ -203,7 +203,7 @@ public class ChooseAccountPanel extends JFrame
 					new Object[][] {
 					},
 					new String[] {
-							"from account", "to account", "money", "date"
+							"account id", "money", "type", "date"
 					}
 				) 
 						);
