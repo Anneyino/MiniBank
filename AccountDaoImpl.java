@@ -33,7 +33,11 @@ public class AccountDaoImpl implements AccountDao {
                 	currencyWithRate=CHYen.getInstance();
                 }
                 if(type==1){
-                    result.add(new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001));
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                    result.add(selectedAccount);
                 }
                 else {
                     result.add(new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01));
@@ -48,6 +52,104 @@ public class AccountDaoImpl implements AccountDao {
         }
         return result;
     }
+    
+    
+    @Override
+    public List<Account> getSavingAccountList(int UID) {
+        Connection c;
+        List<Account> result=new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM Account WHERE uid=? and type = 1");
+            ps.setInt(1,UID);
+            ResultSet rs=ps.executeQuery();
+            while ( rs.next() ) {
+                int aid = rs.getInt("aid");
+                int uid=rs.getInt("uid");
+                int type=rs.getInt("type");
+                double balance=rs.getDouble("balance");
+                int currency=rs.getInt("currency");
+                Date start_time =rs.getDate("start_time");
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
+                }
+                if(type==1){
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                    result.add(selectedAccount);
+                }
+                else {
+                    result.add(new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01));
+                }
+                //result.add(new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type));
+            }
+            rs.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return result;
+    }
+    
+    @Override
+    public List<Account> getCheckingAccountList(int UID) {
+        Connection c;
+        List<Account> result=new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM Account WHERE uid=? and type = 2");
+            ps.setInt(1,UID);
+            ResultSet rs=ps.executeQuery();
+            while ( rs.next() ) {
+                int aid = rs.getInt("aid");
+                int uid=rs.getInt("uid");
+                int type=rs.getInt("type");
+                double balance=rs.getDouble("balance");
+                int currency=rs.getInt("currency");
+                Date start_time =rs.getDate("start_time");
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
+                }
+                if(type==1){
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                    result.add(selectedAccount);
+                }
+                else {
+                    result.add(new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01));
+                }
+                //result.add(new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type));
+            }
+            rs.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return result;
+    }
+    
 
     @Override
     public Account getAccount(int AID) {
@@ -76,7 +178,22 @@ public class AccountDaoImpl implements AccountDao {
                 }else if(currency==3) {
                     currencyWithRate=CHYen.getInstance();
                 }
-                result=new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type);
+                
+                if(type==1){
+                	
+                	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                	// calculate saving account's balance after interested.
+                	selectedAccount.calculateCurrentBalance();
+                	this.updateBalance(aid, selectedAccount.getBalance());
+                	
+                    result = selectedAccount;
+                    
+                }
+                else {
+                    result= new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01);
+                }
+                
+                // result=new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type);
             }
             rs.close();
             c.close();
@@ -199,7 +316,7 @@ public class AccountDaoImpl implements AccountDao {
                 currencyType = 1;
             }else if(balance.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else if(balance.getCurrency().getName().equals("CHYen")) {
+            }else {
                 currencyType = 3;
             }
             PreparedStatement ps=c.prepareStatement("INSERT INTO Account (uid,type,balance,currency,start_time) VALUES (?,?,?,?,?) ");

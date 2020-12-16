@@ -9,7 +9,7 @@ public class BankDaoImpl implements BankDao {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            PreparedStatement ps=c.prepareStatement("SELECT * FROM Bank WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM Bank;");
             ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 double profit=rs.getDouble("profit");
@@ -49,7 +49,7 @@ public class BankDaoImpl implements BankDao {
                 currencyType = 1;
             }else if(profit.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else if(profit.getCurrency().getName().equals("CHYen")) {
+            }else {
                 currencyType = 3;
             }
             PreparedStatement ps=c.prepareStatement("INSERT INTO Bank (profit,balance,currency)"
@@ -81,7 +81,7 @@ public class BankDaoImpl implements BankDao {
             }else if(profit.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET profit=?, currency=? WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET profit=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,profit.getMoney_Num());
             ps.setInt(2,currencyType);
             ps.executeUpdate();
@@ -108,7 +108,7 @@ public class BankDaoImpl implements BankDao {
             }else if(balance.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET balance=?, currency=? WHERE bid=1;");
+            PreparedStatement ps=c.prepareStatement("UPDATE Bank SET balance=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,balance.getMoney_Num());
             ps.setInt(2,currencyType);
             ps.executeUpdate();
@@ -118,5 +118,62 @@ public class BankDaoImpl implements BankDao {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
+    }
+    
+    @Override
+    public void addProfit(DigitMoney deltaMoney) {
+    	Bank currentBank = this.getBank();
+    	
+        DigitMoney currentProfit =  currentBank.getProfit();
+        
+        currentProfit.add(deltaMoney);
+        
+        
+        this.updateProfit(currentProfit);
+    	
+    }
+    
+    @Override
+    public void addBalance(DigitMoney deltaMoney) {
+    	
+        Bank currentBank = this.getBank();
+    	
+        DigitMoney currentBalance = currentBank.getBalance();
+        
+        System.out.println(deltaMoney.getMoney_Num());
+        
+        currentBalance.add(deltaMoney);
+        
+        this.updateBalance(currentBalance);
+    }
+    
+    // return 1 means success, return 0 means deltaMoney greater than balance
+    @Override
+    public int decBalance(DigitMoney deltaMoney) {
+    	
+        Bank currentBank = this.getBank();
+    	
+        DigitMoney currentBalance = currentBank.getBalance();
+        
+        int success = currentBalance.decrease(deltaMoney);
+        
+        this.updateBalance(currentBalance);
+        
+        return success;
+    }
+    
+ // return 1 means success, return 0 means deltaMoney greater than profit
+    @Override
+    public int decProfit(DigitMoney deltaMoney) {
+    	Bank currentBank = this.getBank();
+    	
+        DigitMoney currentProfit =  currentBank.getProfit();
+        
+        int success = currentProfit.decrease(deltaMoney);
+        
+        this.updateProfit(currentProfit);
+        
+        return success;
+    	
     }
 }

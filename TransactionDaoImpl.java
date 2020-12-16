@@ -42,6 +42,44 @@ public class TransactionDaoImpl implements TransactionDao{
         return result;
 
     }
+    
+    @Override
+    public List<Transaction> getAllTransaction(){
+    	Connection c;
+        List<Transaction> result=new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM \"Transaction\"");
+            ResultSet rs = ps.executeQuery();
+            while ( rs.next() ) {
+                int money=rs.getInt("money");
+                int currency=rs.getInt("currency");
+                int aid1=rs.getInt("aid1");
+                int aid2=rs.getInt("aid2");
+                java.util.Date date = rs.getDate("time");
+                Currency currencyWithRate = null;
+                
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
+                }
+                AccountDao accountDao=new AccountDaoImpl();
+
+                result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
+            }
+            rs.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return result;
+    }
 
     @Override
     public List<Transaction> getTransactionFrom(int aid) {
@@ -170,7 +208,7 @@ public class TransactionDaoImpl implements TransactionDao{
                 currencyType = 1;
             }else if(money.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else if(money.getCurrency().getName().equals("CHYen")) {
+            }else {
                 currencyType = 3;
             }
             PreparedStatement ps=c.prepareStatement("INSERT INTO \"Transaction\" (aid1,aid2,money,currency,time) VALUES (?,?,?,?,?)");
