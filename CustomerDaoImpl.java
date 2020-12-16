@@ -1,4 +1,6 @@
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDaoImpl implements CustomerDao {
     @Override
@@ -40,6 +42,87 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         return result;
 
+    }
+    
+    @Override
+    public Customer getCustomerByUid(int uid) {
+    	Connection c = null;
+        //Statement stmt = null;
+        Customer result=null;
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            String sql="SELECT * FROM Customer WHERE uid=?";
+            PreparedStatement preparedStatement = c.prepareStatement(sql);
+            preparedStatement.setInt(1,uid);
+            ResultSet rs=preparedStatement.executeQuery();
+            while ( rs.next() ) {
+                String name = rs.getString("name");
+                String loggingID = rs.getString("loggingID");
+                String password=rs.getString("password");
+                boolean inDebt=rs.getInt("in_debt")==1;
+                double loan=rs.getDouble("loan");
+                String addr=rs.getString("address");
+                int uidfromtable=rs.getInt("uid");
+                int currency=rs.getInt("currency");
+                Currency currencyWithRate = null;
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
+                }
+                result=new Customer(name,loggingID,password,addr,new DigitMoney(loan,currencyWithRate),uidfromtable);
+            }
+            rs.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return result;
+    }
+    
+    @Override
+    public List<Customer> getAllCustomer() {
+    	Connection c = null;
+        //Statement stmt = null;
+        List<Customer> result= new ArrayList<>();
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            String sql="SELECT * FROM Customer";
+            PreparedStatement preparedStatement = c.prepareStatement(sql);
+            ResultSet rs=preparedStatement.executeQuery();
+            while ( rs.next() ) {
+            	String loggingID = rs.getString("loggingID");
+                String name = rs.getString("name");
+                String password=rs.getString("password");
+                boolean inDebt=rs.getInt("in_debt")==1;
+                double loan=rs.getDouble("loan");
+                String addr=rs.getString("address");
+                int uid=rs.getInt("uid");
+                int currency=rs.getInt("currency");
+                Currency currencyWithRate = null;
+                if(currency==1) {
+                	currencyWithRate=USDollar.getInstance();
+                }else if(currency==2) {
+                	currencyWithRate=EuroDollar.getInstance();
+                }else if(currency==3) {
+                	currencyWithRate=CHYen.getInstance();
+                }
+                result.add(new Customer(name,loggingID,password,addr,new DigitMoney(loan,currencyWithRate),uid));
+            }
+            rs.close();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return result;
     }
 
     @Override
@@ -147,6 +230,25 @@ public class CustomerDaoImpl implements CustomerDao {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
             System.exit(0);
         }
+    }
+    @Override
+    public void addLoan(int uid,DigitMoney deltaloan) {
+    	Customer selectedCustomer = this.getCustomerByUid(uid);
+    	
+    	DigitMoney loan = selectedCustomer.getLoan();
+    	loan.add(deltaloan);
+    	
+    	this.updateTheLoan(selectedCustomer.getLoggingID(), loan);
+    }
+    
+    @Override
+    public void decLoan(int uid,DigitMoney deltaloan) {
+        Customer selectedCustomer = this.getCustomerByUid(uid);
+    	
+    	DigitMoney loan = selectedCustomer.getLoan();
+    	loan.decrease(deltaloan);
+    	
+    	this.updateTheLoan(selectedCustomer.getLoggingID(), loan);
     }
 
     @Override

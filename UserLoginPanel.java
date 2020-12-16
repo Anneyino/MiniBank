@@ -180,7 +180,7 @@ public class UserLoginPanel extends JFrame {
 		}
 		
 		public void actionPerformed(ActionEvent e) {
-			StartPanel.list = (List<User>) StartPanel.userFile.printFile();
+			// StartPanel.list = (List<User>) StartPanel.userFile.printFile();
 			int accountNum = 0;
 			int passwordNum = 0;
 			String passwordStr = new String(password.getPassword());

@@ -51,7 +51,17 @@ public class CheckingAccountPanel extends JFrame {
 
 		seekButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog();
+				
+				
+				
+				
+				
+//				JOptionPane.showMessageDialog();
+			
+			
+			
+			
+			
 			}
 		});
 		

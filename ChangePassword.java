@@ -211,7 +211,7 @@ public class ChangePassword extends JFrame {
 					break;
 				}
 			}
-			StartPanel.userFile.saveFile(StartPanel.list);
+//			StartPanel.userFile.saveFile(StartPanel.list);
 		}
 	}
 }

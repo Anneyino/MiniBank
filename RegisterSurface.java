@@ -174,6 +174,11 @@ public class RegisterSurface extends JFrame
 		public void actionPerformed(ActionEvent e) 
 		{
 			//Todo
+			LoginController logincontroller = new LoginController();
+			
+			// logincontroller.Signup(name, loggingID, password, inDebt, loanNum, address)
+			
+			
 		}
 			
 	}

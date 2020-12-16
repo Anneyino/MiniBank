@@ -10,7 +10,7 @@ public class TransactionController {
 		return results;
 	}
 	
-	// this method for customers to show all their transaction records
+	// this method for a customer to show all his own transaction records
 	public List<Transaction> showCustomerTransactions(int uid){
         TransactionDaoImpl transactionDao = new TransactionDaoImpl();
 		

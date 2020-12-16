@@ -113,7 +113,7 @@ public class UserSurface extends JFrame {
 
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				StartPanel.userFile.saveFile(StartPanel.list);
+				// StartPanel.userFile.saveFile(StartPanel.list);
 				for(int i = 0;i < StartPanel.list.size();i++)
 				{
 					System.out.println(StartPanel.list.get(i));

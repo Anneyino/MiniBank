@@ -84,5 +84,26 @@ public class OpenAccountController {
 		
 		return 1;
 	}
+	
+	// a method for user to ask for loan 
+	public int requestLoan(int uid, DigitMoney loanMoney) {
+		
+		CustomerDaoImpl customerDao = new CustomerDaoImpl();
+		
+		customerDao.addLoan(uid, loanMoney);
+		
+		
+		return 1;
+	}
+	
+	// a method for user to pay the loan
+	public int payLoan(int uid, DigitMoney loanMoney) {
+        CustomerDaoImpl customerDao = new CustomerDaoImpl();
+		
+		customerDao.decLoan(uid, loanMoney);
+		
+		
+		return 1;
+	}
 
 }
