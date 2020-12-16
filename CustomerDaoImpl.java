@@ -126,7 +126,8 @@ public class CustomerDaoImpl implements CustomerDao {
     }
 
     @Override
-    public void changePassword(String loggingID, String password) {
+    public int changePassword(String loggingID, String password) {
+    	int flag = 1;
         Connection c = null;
         Customer result=null;
         try {
@@ -141,8 +142,10 @@ public class CustomerDaoImpl implements CustomerDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            flag = 0;
+            
         }
+        return flag;
     }
     // return 1 means ok, 0 means fail to insert, maybe loggingID already exists.
     @Override
@@ -181,7 +184,7 @@ public class CustomerDaoImpl implements CustomerDao {
         } catch ( Exception e ) {
         	result = 0;
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-            System.exit(0);
+            // System.exit(0);
         }
         
         return result;
@@ -267,7 +270,13 @@ public class CustomerDaoImpl implements CustomerDao {
             PreparedStatement ps=c.prepareStatement("SELECT password from Customer WHERE loggingID=?");
             ps.setString(1,loggingID);
             ResultSet rs=ps.executeQuery();
-            realPassword = rs.getString("password");
+            
+            while ( rs.next() ) {
+            	realPassword = rs.getString("password");
+            }
+            
+
+            rs.close();
             c.commit();
             c.close();
         } catch ( Exception e ) {

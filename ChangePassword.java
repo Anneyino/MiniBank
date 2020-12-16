@@ -33,7 +33,7 @@ public class ChangePassword extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ChangePassword frame = new ChangePassword();
+					ChangePassword frame = new ChangePassword(new Customer());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -42,7 +42,7 @@ public class ChangePassword extends JFrame {
 		});
 	}
 
-	public ChangePassword() {
+	public ChangePassword(Customer customer) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700,300, 450, 300);
 		contentPane = new JPanel();
@@ -88,6 +88,8 @@ public class ChangePassword extends JFrame {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 			}
 		});
 		
@@ -139,7 +141,7 @@ public class ChangePassword extends JFrame {
 		oldPassword.addKeyListener(new PasswordText());
 		newPassword.addKeyListener(new PasswordText());
 		confirmPassword.addKeyListener(new PasswordText());
-		confirmButton.addActionListener(new confirmButtonHandler(oldPassword,newPassword,confirmPassword));
+		confirmButton.addActionListener(new confirmButtonHandler(customer,oldPassword,newPassword,confirmPassword));
 		contentPane.setLayout(gl_contentPane);
 	}
 	
@@ -157,12 +159,14 @@ public class ChangePassword extends JFrame {
 	
 	// confirm listener
 	public class confirmButtonHandler implements ActionListener{
+		private Customer customer;
 		private JPasswordField oldPassword;
 		private JPasswordField newPassword;
 		private JPasswordField confirmPassword;
 		private int sameChar = 0;
 		
-		public confirmButtonHandler(JPasswordField oldPassword,JPasswordField newPassword,JPasswordField confirmPassword) {
+		public confirmButtonHandler(Customer currentCustomer,JPasswordField oldPassword,JPasswordField newPassword,JPasswordField confirmPassword) {
+			this.customer = currentCustomer;
 			this.oldPassword = oldPassword;
 			this.newPassword = newPassword;
 			this.confirmPassword = confirmPassword;
@@ -171,6 +175,29 @@ public class ChangePassword extends JFrame {
 		
 		// method for changing password
 		public void actionPerformed(ActionEvent e) {
+			String oldpassword = new String(oldPassword.getPassword());
+			String newpassword = new String(newPassword.getPassword());
+			String confirmpassword = new String(confirmPassword.getPassword());
+			
+			if(oldpassword.equals(customer.getPassword())) {
+				
+				if(newpassword.equals(confirmpassword)) {
+					
+					LoginController logincontrol = new LoginController();
+					logincontrol.changePassword(customer.getLoggingID(), newpassword);
+					JOptionPane.showMessageDialog(null,"the password has been changed!","message",JOptionPane.ERROR_MESSAGE);
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"the 2 new passwords don't match","message",JOptionPane.ERROR_MESSAGE);
+				}
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"the old password is wrong!","message",JOptionPane.ERROR_MESSAGE);
+			}
+			
+			
+			
+			
 //			for(int i = 0;i < StartPanel.list.size();i++)
 //			{
 //				if(UserLoginPanel.userAccount.equals(StartPanel.list.get(i).getLoggingID()))

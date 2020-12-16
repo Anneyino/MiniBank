@@ -55,7 +55,7 @@ public class UserSurface extends JFrame {
 		checkingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				new CheckingAccountPanel().setVisible(true);
+				new CheckingAccountPanel(customer).setVisible(true);
 			}
 		});
 		
@@ -68,22 +68,22 @@ public class UserSurface extends JFrame {
 		savingAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				new SavingAccountPanel().setVisible(true);
+				new SavingAccountPanel(customer).setVisible(true);
 			}
 		});
 		
-		JButton newAccountButton = new JButton("New Account"); // register
+		JButton newAccountButton = new JButton("New Account"); // register complete
 		newAccountButton.setBackground(new Color(221, 160, 221));
 		newAccountButton.setForeground(new Color(0, 0, 0));
 		newAccountButton.setBorderPainted(true);
 		newAccountButton.setFocusPainted(true);
 		newAccountButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewAccountPanel().setVisible(true);
+				new NewAccountPanel(customer).setVisible(true);
 			}
 		});
 		
-		JButton loanButton = new JButton("Loan");
+		JButton loanButton = new JButton("Loan"); // loan
 		loanButton.setBackground(new Color(255, 204, 153));
 		loanButton.setBorderPainted(true);
 		loanButton.setFocusPainted(true);
@@ -92,42 +92,37 @@ public class UserSurface extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
-				String type = JOptionPane.showInputDialog(null, "Input currency type", "loan currency", JOptionPane.INFORMATION_MESSAGE);
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "loan currency", JOptionPane.INFORMATION_MESSAGE);
-				
-				if(type.equals("1")) {
-					
-				}else if(type.equals("2")) {
-					
-				}
+				dispose();
+				LoanPanel loanpanel = new LoanPanel(customer);
+				loanpanel.setVisible(true);
 			}		
 		});
 		
-		JButton changeCodeButton = new JButton("Change Password");
+		JButton changeCodeButton = new JButton("Change Password"); // change password complete
 		changeCodeButton.setBackground(new Color(153, 255, 204));
 		changeCodeButton.setBorderPainted(true);
 		changeCodeButton.setFocusPainted(true);
 		
 		changeCodeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				ChangePassword changePassword = new ChangePassword();
+				ChangePassword changePassword = new ChangePassword(customer);
 				changePassword.setVisible(true);
 			}
 		});
 		
-		JButton transButton = new JButton("Query Transactions");
+		JButton transButton = new JButton("Query Transactions"); // query transaction complete
 		transButton.setBackground(new Color(153, 255, 204));
 		transButton.setBorderPainted(true);
 		transButton.setFocusPainted(true);
 		
 		transButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				UserTransactionQuery query = new UserTransactionQuery();
+				UserTransactionQuery query = new UserTransactionQuery(customer);
 				query.setVisible(true);
 			}
 		});
 		
-		JButton exitButton = new JButton("Exit");
+		JButton exitButton = new JButton("Exit"); // exit complete
 		exitButton.setBackground(new Color(255, 204, 153));
 		exitButton.setBorderPainted(true);
 		exitButton.setFocusPainted(true);
@@ -135,8 +130,10 @@ public class UserSurface extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				NewAccountPanel mainFrame = new NewAccountPanel();
-				mainFrame.setVisible(true);
+				UserLoginPanel userlogin = new UserLoginPanel();
+				userlogin.setVisible(true);
+				//NewAccountPanel mainFrame = new NewAccountPanel();
+				//mainFrame.setVisible(true);
 							
 			}
 		});

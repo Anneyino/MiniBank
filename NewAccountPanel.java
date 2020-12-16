@@ -20,6 +20,8 @@ import java.awt.Font;
 public class NewAccountPanel extends JFrame 
 {
 	private JPanel contentPane;
+	
+	private Customer currentCustomer;
 
 
 	// Main method to start
@@ -31,7 +33,7 @@ public class NewAccountPanel extends JFrame
 			{
 				try 
 				{
-					NewAccountPanel frame = new NewAccountPanel();
+					NewAccountPanel frame = new NewAccountPanel(new Customer());
 					frame.setVisible(true);
 				} 
 				catch (Exception e) 
@@ -45,9 +47,9 @@ public class NewAccountPanel extends JFrame
 	/**
 	 * Login Panel
 	 */
-	public NewAccountPanel() 
-	{
-		
+	public NewAccountPanel(Customer customer) 
+	{ 
+		this.currentCustomer = customer;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 481, 347);
 		contentPane = new JPanel();
@@ -71,7 +73,8 @@ public class NewAccountPanel extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				OpenAccountController Accountcontroller = new OpenAccountController();
+				Accountcontroller.openZeroAccount(customer.getUid(), 2);
 			}
 		});
 		
@@ -87,7 +90,8 @@ public class NewAccountPanel extends JFrame
 			
 			public void actionPerformed(ActionEvent e) 
 			{
-				
+				OpenAccountController Accountcontroller = new OpenAccountController();
+				Accountcontroller.openZeroAccount(customer.getUid(), 1);
 			}
 		});
 		
@@ -101,7 +105,10 @@ public class NewAccountPanel extends JFrame
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
-				System.exit(0);
+				dispose();
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
+						
 			}
 		});
 		

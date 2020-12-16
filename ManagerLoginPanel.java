@@ -53,7 +53,7 @@ public class ManagerLoginPanel extends JFrame {
 	 * manager login panel
 	 */
 	public ManagerLoginPanel() 
-	{
+	{   
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -170,6 +170,19 @@ public class ManagerLoginPanel extends JFrame {
 		
 		// manager login method
 		public void actionPerformed(ActionEvent e) {
+			String loggingID = accountText.getText();
+			String password = new String(codePassword.getPassword());
+			
+			LoginController logincontroller = new LoginController();
+			int success = logincontroller.LoginForManager(loggingID, password);
+			if(success==1) {
+				dispose();
+				ManagerSurface managersurface = new ManagerSurface();
+				managersurface.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
+			}
+			
 			
 		}
 	}

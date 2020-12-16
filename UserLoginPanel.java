@@ -115,7 +115,9 @@ public class UserLoginPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				dispose();
-				new StartPanel().setVisible(true);
+				StartPanel startingpanel = new StartPanel();
+				startingpanel.setVisible(true);
+				// new NewAccountPanel().setVisible(true);
 			}
 		});
 		

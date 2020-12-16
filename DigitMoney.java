@@ -62,4 +62,19 @@ public class DigitMoney {
 		}
 		return success;
 	}
+	
+	public String toString() {
+		String num = String.valueOf(money_num);
+		
+		if(this.getCurrency() instanceof CHYen) {
+			num = "Y"+num; 
+		}else if(this.getCurrency() instanceof USDollar) {
+			num = "$"+num;
+		}else if(this.getCurrency() instanceof EuroDollar) {
+			num = "E"+num;
+		}
+		
+		return num;
+		
+	}
 }

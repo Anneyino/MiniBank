@@ -49,7 +49,7 @@ public class ManagerSurface extends JFrame {
 		accountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new NewAccountPanel().setVisible(true);
+				// new NewAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -86,8 +86,8 @@ public class ManagerSurface extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				NewAccountPanel mainFrame = new NewAccountPanel();
-				mainFrame.setVisible(true);
+//				NewAccountPanel mainFrame = new NewAccountPanel();
+//				mainFrame.setVisible(true);
 			}
 		});
 		

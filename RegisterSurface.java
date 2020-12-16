@@ -171,7 +171,7 @@ public class RegisterSurface extends JFrame
 		//name.addKeyListener(new PasswordText());
 		password.addKeyListener(new PasswordText());
 		confirmPassword.addKeyListener(new PasswordText());
-		confirmButton.addActionListener(new confirmButtonHandler(name, password, confirmPassword));
+		confirmButton.addActionListener(new confirmButtonHandler(name, loggingID ,password, confirmPassword, address));
 		contentPane.setLayout(gl_contentPane);
 	}
 	
@@ -196,10 +196,12 @@ public class RegisterSurface extends JFrame
 		private JPasswordField confirmPassword;
 		private int sameChar = 0;
 		
-		public confirmButtonHandler(JTextField name,JPasswordField newPassword,JPasswordField confirmPassword) {
+		public confirmButtonHandler(JTextField name,JTextField logging_id,JPasswordField newPassword,JPasswordField confirmPassword,JTextField address_text) {
 			this.name = name;
+			this.loggingID = logging_id;
 			this.password = newPassword;
 			this.confirmPassword = confirmPassword;
+			this.address = address_text;
 		}
 		
 		
@@ -207,9 +209,25 @@ public class RegisterSurface extends JFrame
 		// Register for a new user
 		public void actionPerformed(ActionEvent e) 
 		{
+			
 			//Todo
 			LoginController logincontroller = new LoginController();
-			//logincontroller.Signup(name, loggingID, password, inDebt, loanNum, address);
+			
+			String customer_name = name.getText();
+			String logging_Id = loggingID.getText();
+			String password_1 = new String(password.getPassword());
+			String password_2 = new String(confirmPassword.getPassword());
+			String address_str = address.getText();
+			
+			if(password_1.equals(password_2)) {
+				int flag = logincontroller.Signup(customer_name, logging_Id, password_1, 0, 0, address_str);
+				if(flag==0) {
+					JOptionPane.showMessageDialog(null,"the logging ID has already been used!","message",JOptionPane.ERROR_MESSAGE);
+				}
+			}else {
+				JOptionPane.showMessageDialog(null,"the 2 passwords don't match!","message",JOptionPane.ERROR_MESSAGE);
+			}
+			
 			
 			
 		}

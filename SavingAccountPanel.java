@@ -22,7 +22,7 @@ public class SavingAccountPanel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SavingAccountPanel frame = new SavingAccountPanel();
+					SavingAccountPanel frame = new SavingAccountPanel(new Customer());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class SavingAccountPanel extends JFrame {
 		});
 	}
 
-	public SavingAccountPanel() {
+	public SavingAccountPanel(Customer customer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -104,8 +104,8 @@ public class SavingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				NewAccountPanel mainFrame = new NewAccountPanel();
-				mainFrame.setVisible(true);
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 							
 			}
 		});

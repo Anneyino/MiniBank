@@ -42,7 +42,7 @@ public class LoanPanel extends JFrame{
 		});
 	}
 
-	public LoanPanel() {
+	public LoanPanel(Customer customer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -84,16 +84,32 @@ public class LoanPanel extends JFrame{
 		confirmButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(jr1.isSelected())
-				{
+				{ //CHY
+				  String value_str = amountText.getText();
+				  double amount_value = Double.valueOf(value_str);
+				  OpenAccountController openaccountController = new OpenAccountController();
+				  DigitMoney loanmoney = new DigitMoney(amount_value,CHYen.getInstance());
+				  int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
+				  
 					
 				}
 				else if(jr2.isSelected())
-				{
+				{ //USD
+					String value_str = amountText.getText();
+					double amount_value = Double.valueOf(value_str);
+					OpenAccountController openaccountController = new OpenAccountController();
+					DigitMoney loanmoney = new DigitMoney(amount_value,USDollar.getInstance());
+					int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
 					
 				}
 				else if(jr3.isSelected())
-				{
-					
+				{ //EUR
+					String value_str = amountText.getText();
+					double amount_value = Double.valueOf(value_str);
+					OpenAccountController openaccountController = new OpenAccountController();
+					DigitMoney loanmoney = new DigitMoney(amount_value,EuroDollar.getInstance());
+					int success =  openaccountController.requestLoan(customer.getUid(),loanmoney);
+				
 				}
 			}
 		});
@@ -105,7 +121,7 @@ public class LoanPanel extends JFrame{
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new UserSurface().setVisible(true);
+				new UserSurface(customer).setVisible(true);
 			}
 		});
 

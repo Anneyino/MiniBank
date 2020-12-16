@@ -20,6 +20,24 @@ public class OpenAccountController {
 		return 1;
 	}
 	
+    public int openZeroAccount(int uid, int type) {
+		
+		AccountDaoImpl accountDao = new AccountDaoImpl();
+		Date currentDate = new Date();
+		DigitMoney starting_money = new DigitMoney(0,USDollar.getInstance());
+		// insert to database
+		accountDao.insert(uid, type, starting_money, currentDate);
+		// take service fee as bank's profit and add to bank's balance
+		BankDaoImpl bankDao = new BankDaoImpl();
+		
+		DigitMoney servicefee = new DigitMoney(10,USDollar.getInstance());
+		
+		bankDao.addBalance(servicefee);
+		bankDao.addProfit(servicefee);
+		
+		return 1;
+	}
+	
 	
 	public int DepositMoney(int aid, DigitMoney money) {
 		AccountDaoImpl accountDao = new AccountDaoImpl();

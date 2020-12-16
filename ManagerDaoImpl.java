@@ -66,4 +66,28 @@ public class ManagerDaoImpl implements ManagerDao {
             System.exit(0);
         }
     }
+    @Override
+    public boolean checkThePassword(String loggingID, String password) {
+    	Connection c = null;
+        String realPassword="";
+        try {
+            Class.forName("org.sqlite.JDBC");
+            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c.setAutoCommit(false);
+            PreparedStatement ps=c.prepareStatement("SELECT password from Manager WHERE loggingID=?");
+            ps.setString(1,loggingID);
+            ResultSet rs=ps.executeQuery();
+            while ( rs.next() ) {
+            	realPassword = rs.getString("password");
+            }
+            rs.close();
+            c.commit();
+            c.close();
+        } catch ( Exception e ) {
+            System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
+        }
+        return realPassword.equals(password);
+    }
+    
 }
