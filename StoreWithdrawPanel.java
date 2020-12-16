@@ -111,7 +111,7 @@ public class StoreWithdrawPanel extends JFrame{
 			}
 		});
 
-        GroupLayout gl_contentPane = new GroupLayout(contentPane);
+		GroupLayout gl_contentPane = new GroupLayout(contentPane);
         gl_contentPane.setHorizontalGroup(
     			gl_contentPane.createParallelGroup(Alignment.LEADING)
     				.addGroup(gl_contentPane.createSequentialGroup()
@@ -141,7 +141,7 @@ public class StoreWithdrawPanel extends JFrame{
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(10)
+					.addGap(20)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addGap(50)
 						.addComponent(jr1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
@@ -149,16 +149,16 @@ public class StoreWithdrawPanel extends JFrame{
 						.addComponent(jr2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addGap(50)
 						.addComponent(jr3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
-								.addComponent(amountLabel)
-								.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(100))
-					.addGap(167))
+						.addGap(50)
+			
+						.addComponent(amountLabel)
+						.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+						.addGap(100))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label))
-					.addGap(30)
+					.addGap(100)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGap(150)
+						.addGap(250)
 						.addComponent(confirmButton)
 						.addComponent(cancelButton))
 					
