@@ -76,7 +76,15 @@ public class AccountDaoImpl implements AccountDao {
                 }else if(currency==3) {
                     currencyWithRate=CHYen.getInstance();
                 }
-                result=new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type);
+                
+                if(type==1){
+                    result = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
+                }
+                else {
+                    result= new CheckingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.01);
+                }
+                
+                // result=new Account(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,type);
             }
             rs.close();
             c.close();

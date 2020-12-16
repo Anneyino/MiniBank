@@ -119,4 +119,58 @@ public class BankDaoImpl implements BankDao {
             System.exit(0);
         }
     }
+    
+    @Override
+    public void addProfit(DigitMoney deltaMoney) {
+    	Bank currentBank = this.getBank();
+    	
+        DigitMoney currentProfit =  currentBank.getProfit();
+        
+        currentProfit.add(deltaMoney);
+        
+        this.updateProfit(currentProfit);
+    	
+    }
+    
+    @Override
+    public void addBalance(DigitMoney deltaMoney) {
+    	
+        Bank currentBank = this.getBank();
+    	
+        DigitMoney currentBalance = currentBank.getBalance();
+        
+        currentBalance.add(deltaMoney);
+        
+        this.updateBalance(currentBalance);
+    }
+    
+    // return 1 means success, return 0 means deltaMoney greater than balance
+    @Override
+    public int decBalance(DigitMoney deltaMoney) {
+    	
+        Bank currentBank = this.getBank();
+    	
+        DigitMoney currentBalance = currentBank.getBalance();
+        
+        int success = currentBalance.decrease(deltaMoney);
+        
+        this.updateBalance(currentBalance);
+        
+        return success;
+    }
+    
+ // return 1 means success, return 0 means deltaMoney greater than profit
+    @Override
+    public int decProfit(DigitMoney deltaMoney) {
+    	Bank currentBank = this.getBank();
+    	
+        DigitMoney currentProfit =  currentBank.getProfit();
+        
+        int success = currentProfit.decrease(deltaMoney);
+        
+        this.updateProfit(currentProfit);
+        
+        return success;
+    	
+    }
 }
