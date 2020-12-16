@@ -4,20 +4,23 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public Customer getCustomer(String loggingID) {
         Connection c = null;
-        Statement stmt = null;
+        //Statement stmt = null;
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM Customer WHERE loggingID="+loggingID+";" );
+            String sql="SELECT * FROM Customer WHERE loggingID=?";
+            PreparedStatement preparedStatement = c.prepareStatement(sql);
+            preparedStatement.setString(1,loggingID);
+            ResultSet rs=preparedStatement.executeQuery();
             while ( rs.next() ) {
                 String name = rs.getString("name");
                 String password=rs.getString("password");
                 boolean inDebt=rs.getInt("in_debt")==1;
                 double loan=rs.getDouble("loan");
                 String addr=rs.getString("address");
+                int uid=rs.getInt("uid");
                 int currency=rs.getInt("currency");
                 Currency currencyWithRate = null;
                 if(currency==1) {
@@ -27,22 +30,9 @@ public class CustomerDaoImpl implements CustomerDao {
                 }else if(currency==3) {
                 	currencyWithRate=CHYen.getInstance();
                 }
-//                switch (currency){
-//                    case 1->{
-//                        currencyWithRate=USDollar.getInstance();
-//                    }
-//                    case 2->{
-//                        currencyWithRate=EuroDollar.getInstance();
-//                    }
-//                    default->{
-//                        currencyWithRate=CHYen.getInstance();
-//                    }
-//                }
-                result=new Customer(name,loggingID,password,addr,new DigitMoney(loan,currencyWithRate));
-                //result.set_Is_In_Debt(inDebt);
+                result=new Customer(name,loggingID,password,addr,new DigitMoney(loan,currencyWithRate),uid);
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -55,16 +45,16 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public void changePassword(String loggingID, String password) {
         Connection c = null;
-        Statement stmt = null;
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            stmt.executeUpdate( "UPDATE Customer SET password="+password+" WHERE loggingID="+loggingID+";" );
+            PreparedStatement preparedStatement=c.prepareStatement("UPDATE Customer SET password=? WHERE loggingID=?");
+            preparedStatement.setString(1,password);
+            preparedStatement.setString(2,loggingID);
+            preparedStatement.executeUpdate();
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -75,12 +65,10 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public void insert(String name, String loggingID, String password, int inDebt, DigitMoney loan, String address) {
         Connection c;
-        Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
             int currencyType=0;
             if(loan.getCurrency().getName().equals("USDollar")) {
                 currencyType = 1;
@@ -89,15 +77,21 @@ public class CustomerDaoImpl implements CustomerDao {
             }else if(loan.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-//            switch (targetCurrency.getName()){
-//                case "USDollar"->currencyType=1;
-//                case "EuroDollar"->currencyType=2;
-//                case "CHYen"->currencyType=3;
-//            }
-            stmt.executeUpdate( "INSERT INTO Customer (name,loggingID,password,in_debt,loan,currency,address)"
-                    +"VALUES ("+name+","+loggingID+","+password+","+inDebt+","+loan.getMoney_Num()+","+currencyType+","+address+");" );
+            try (PreparedStatement insert = c.prepareStatement(
+                    "insert into Customer(name, loggingID, password, in_debt, loan, currency, address) values(?,?,?,?,?,?,?)")) {
+                insert.setString(1, name);
+                insert.setString(2, loggingID);
+                insert.setString(3,password);
+                insert.setInt(4,inDebt);
+                insert.setDouble(5,loan.getMoney_Num());
+                insert.setInt(6,currencyType);
+                insert.setString(7,address);
+
+                insert.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException("Cannot insert the customer into SQL Database.", e);
+            }
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -108,16 +102,25 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public void updateTheLoan(String loggingID,DigitMoney loan) {
         Connection c = null;
-        Statement stmt = null;
         Customer result=null;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            stmt.executeUpdate( "UPDATE Customer SET loan="+loan.getMoney_Num()+", currency="+loan.getCurrency()+" WHERE loggingID="+loggingID+";" );
+            int currencyType=0;
+            if(loan.getCurrency().getName().equals("USDollar")) {
+                currencyType = 1;
+            }else if(loan.getCurrency().getName().equals("EuroDollar")) {
+                currencyType = 2;
+            }else if(loan.getCurrency().getName().equals("CHYen")) {
+                currencyType = 3;
+            }
+            PreparedStatement ps=c.prepareStatement("UPDATE Customer SET loan=?, currency=? WHERE loggingID=?");
+            ps.setDouble(1,loan.getMoney_Num());
+            ps.setInt(2,currencyType);
+            ps.setString(3,loggingID);
+            ps.executeUpdate();
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -134,10 +137,11 @@ public class CustomerDaoImpl implements CustomerDao {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            stmt.executeUpdate( "UPDATE Customer SET in_debt="+inDebt+" WHERE loggingID="+loggingID+";" );
+            PreparedStatement ps=c.prepareStatement("UPDATE Customer SET in_debt=? WHERE loggingID=?");
+            ps.setInt(1,inDebt);
+            ps.setString(2,loggingID);
+            ps.executeUpdate();
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -148,18 +152,16 @@ public class CustomerDaoImpl implements CustomerDao {
     @Override
     public boolean checkThePassword(String loggingID, String password) {
         Connection c = null;
-        Statement stmt = null;
-        Customer result=null;
         String realPassword="";
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT password from Customer WHERE loggingID="+loggingID+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT password from Customer WHERE loggingID=?");
+            ps.setString(1,loggingID);
+            ResultSet rs=ps.executeQuery();
             realPassword = rs.getString("password");
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );

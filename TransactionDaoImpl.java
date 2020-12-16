@@ -1,7 +1,4 @@
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -10,14 +7,15 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransaction(int aid1, int aid2) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid1="+aid1+" and aid2="+aid2+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM \"Transaction\" WHERE aid1=? and aid2=?");
+            ps.setInt(1,aid1);
+            ps.setInt(2,aid2);
+            ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 int money=rs.getInt("money");
                 int currency=rs.getInt("currency");
@@ -36,7 +34,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -49,14 +46,14 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransactionFrom(int aid) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid1="+aid+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM \"Transaction\" WHERE aid1=?");
+            ps.setInt(1,aid);
+            ResultSet rs=ps.executeQuery();
             while ( rs.next() ) {
                 int money=rs.getInt("money");
                 int currency=rs.getInt("currency");
@@ -76,7 +73,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -88,14 +84,14 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransactionTo(int aid) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE aid2="+aid+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM \"Transaction\" WHERE aid2=?");
+            ps.setInt(1,aid);
+            ResultSet rs =ps.executeQuery();
             while ( rs.next() ) {
                 int money=rs.getInt("money");
                 int currency=rs.getInt("currency");
@@ -115,7 +111,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -128,14 +123,14 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransaction(Date datetime) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" WHERE time="+(java.sql.Date)datetime+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT * FROM \"Transaction\" WHERE time=?");
+            ps.setDate(1, new java.sql.Date(datetime.getTime()));
+            ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 int money=rs.getInt("money");
                 int currency=rs.getInt("currency");
@@ -155,7 +150,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),datetime));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -167,12 +161,10 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public void insert(int aid1, int aid2, DigitMoney money, Date time) {
         Connection c;
-        Statement stmt;
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
             int currencyType=0;
             if(money.getCurrency().getName().equals("USDollar")) {
                 currencyType = 1;
@@ -181,10 +173,14 @@ public class TransactionDaoImpl implements TransactionDao{
             }else if(money.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
             }
-            stmt.executeUpdate( "INSERT INTO \"Transaction\" (aid1,aid2,money,currency,time)"
-                    +"VALUES ("+aid1+","+aid2+","+money.getMoney_Num()+","+currencyType+","+time+");" );
+            PreparedStatement ps=c.prepareStatement("INSERT INTO \"Transaction\" (aid1,aid2,money,currency,time) VALUES (?,?,?,?,?)");
+            ps.setInt(1,aid1);
+            ps.setInt(2,aid2);
+            ps.setDouble(3,money.getMoney_Num());
+            ps.setInt(4,currencyType);
+            ps.setDate(5, new java.sql.Date(time.getTime()));
+            ps.executeUpdate();
             c.commit();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -196,16 +192,17 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransactionByUser(int uid1, int uid2) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * From " +
-                    "(SELECT * FROM \"Transaction\" Join Account A1 on A1.aid = \"Transaction\".aid1 WHERE A1.uid="+uid1+";)" +
-                    " Join Account A2 on A2.aid=\"Transaction\".aid2 Where A2.uid="+uid2+";" );
+            PreparedStatement ps=c.prepareStatement("SELECT tempTable.* From " +
+                    "(SELECT \"Transaction\".* FROM \"Transaction\" Join Account A1 on A1.aid = \"Transaction\".aid1 WHERE A1.uid=?) AS tempTable" +
+                    " Join Account A2 on A2.aid=tempTable.aid2 Where A2.uid=?");
+            ps.setInt(1,uid1);
+            ps.setInt(2,uid2);
+            ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 int aid1=rs.getInt("aid1");
                 int aid2=rs.getInt("aid2");
@@ -226,7 +223,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -238,14 +234,14 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransactionFromByUser(int uid) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" Join Account A1 on A1.aid = \"Transaction\".aid1 WHERE A1.uid="+uid+";");
+            PreparedStatement ps=c.prepareStatement("SELECT \"Transaction\".* FROM \"Transaction\" Join Account A1 on A1.aid = \"Transaction\".aid1 WHERE A1.uid=?");
+            ps.setInt(1,uid);
+            ResultSet rs =ps.executeQuery();
             while ( rs.next() ) {
                 int aid1=rs.getInt("aid1");
                 int aid2=rs.getInt("aid2");
@@ -266,7 +262,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
@@ -278,14 +273,14 @@ public class TransactionDaoImpl implements TransactionDao{
     @Override
     public List<Transaction> getTransactionToByUser(int uid) {
         Connection c;
-        Statement stmt;
         List<Transaction> result=new ArrayList<>();
         try {
             Class.forName("org.sqlite.JDBC");
             c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
             c.setAutoCommit(false);
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery( "SELECT * FROM \"Transaction\" Join Account A2 on A2.aid = \"Transaction\".aid2 WHERE A2.uid="+uid+";");
+            PreparedStatement ps=c.prepareStatement("SELECT \"Transaction\".* FROM \"Transaction\" Join Account A2 on A2.aid = \"Transaction\".aid2 WHERE A2.uid=?");
+            ps.setInt(1,uid);
+            ResultSet rs = ps.executeQuery();
             while ( rs.next() ) {
                 int aid1=rs.getInt("aid1");
                 int aid2=rs.getInt("aid2");
@@ -306,7 +301,6 @@ public class TransactionDaoImpl implements TransactionDao{
                 result.add(new Transaction(accountDao.getAccount(aid1),accountDao.getAccount(aid2),new DigitMoney(money,currencyWithRate),date));
             }
             rs.close();
-            stmt.close();
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
