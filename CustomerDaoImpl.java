@@ -48,7 +48,7 @@ public class CustomerDaoImpl implements CustomerDao {
     public Customer getCustomerByUid(int uid) {
         Connection c = null;
         try {
-            c = DriverManager.getConnection("jdbc:sqlite:dataBaseForBank.db");
+            c = DriverManager.getConnection("jdbc:sqlite:D:\\MiniBankForTest\\MiniBank-master\\dataBaseForBank.db");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
@@ -212,7 +212,7 @@ public class CustomerDaoImpl implements CustomerDao {
                 currencyType = 2;
             }else if(loan.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
-            }else {currencyType=3;}
+            }
             PreparedStatement ps=c.prepareStatement("UPDATE Customer SET loan=?, currency=? WHERE loggingID=?");
             ps.setDouble(1,loan.getMoney_Num());
             ps.setInt(2,currencyType);
@@ -222,7 +222,7 @@ public class CustomerDaoImpl implements CustomerDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//            System.exit(0);
+            System.exit(0);
         }
     }
 
@@ -243,7 +243,7 @@ public class CustomerDaoImpl implements CustomerDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//            System.exit(0);
+            System.exit(0);
         }
     }
     @Override
@@ -288,7 +288,7 @@ public class CustomerDaoImpl implements CustomerDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
-//            System.exit(0);
+            System.exit(0);
         }
         return realPassword.equals(password);
     }

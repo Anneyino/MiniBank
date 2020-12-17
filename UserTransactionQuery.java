@@ -91,7 +91,7 @@ public class UserTransactionQuery extends JFrame
 						String input_accountId_Str = name.getText();
 						int input_accountId = Integer.valueOf(input_accountId_Str);
 						
-						List<Transaction> transactionlist = transactioncontrol.showAccountTransactions(input_accountId);
+						List<Transaction> transactionlist = transactioncontrol.showAccountTransactions(input_accountId,uid);
 						
 						if(!transactionlist.isEmpty()) {
 							

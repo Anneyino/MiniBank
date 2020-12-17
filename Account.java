@@ -10,6 +10,8 @@ public class Account {
 	
 	private int type; // 1 for saving account, 2 for checking account
 
+	private int uid;
+
 	private int currency;
 	// default constructor
 	public Account() {
@@ -18,14 +20,22 @@ public class Account {
 		this.setStartTime(new Date());
 		this.setType(1);
 	}
-	
+
 	public Account(int id, DigitMoney dgm, Date stime, int t) {
 		this.setAccountId(id);
 		this.setBalance(dgm);
 		this.setStartTime(stime);
 		this.setType(t);
 	}
-	
+
+	public Account(int id, DigitMoney dgm, Date stime, int t,int uid) {
+		this.setAccountId(id);
+		this.setBalance(dgm);
+		this.setStartTime(stime);
+		this.setType(t);
+		this.setUid(uid);
+	}
+
 	
 	// get and set method
 	public void setAccountId(int id) {
@@ -59,6 +69,10 @@ public class Account {
 	public int getType() {
 		return this.type;
 	}
+
+	public void setUid(int uid){this.uid=uid;}
+
+	public int getUid(){return this.uid;}
 
 	// money deposit and withdraw and transfer method
 	

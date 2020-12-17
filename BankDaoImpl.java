@@ -29,6 +29,7 @@ public class BankDaoImpl implements BankDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
         return result;
     }
@@ -48,9 +49,9 @@ public class BankDaoImpl implements BankDao {
                 currencyType = 1;
             }else if(profit.getCurrency().getName().equals("EuroDollar")) {
                 currencyType = 2;
-            }else if(profit.getCurrency().getName().equals("CHYen")) {
+            }else {
                 currencyType = 3;
-            }else {currencyType=3;}
+            }
             PreparedStatement ps=c.prepareStatement("INSERT INTO Bank (profit,balance,currency)"
                     +"VALUES (?,?,?)");
             ps.setDouble(1,profit.getMoney_Num());
@@ -61,6 +62,7 @@ public class BankDaoImpl implements BankDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
 
@@ -78,7 +80,7 @@ public class BankDaoImpl implements BankDao {
                 currencyType = 2;
             }else if(profit.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
-            }else {currencyType=3;}
+            }
             PreparedStatement ps=c.prepareStatement("UPDATE Bank SET profit=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,profit.getMoney_Num());
             ps.setInt(2,currencyType);
@@ -87,6 +89,7 @@ public class BankDaoImpl implements BankDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
 
@@ -104,7 +107,7 @@ public class BankDaoImpl implements BankDao {
                 currencyType = 2;
             }else if(balance.getCurrency().getName().equals("CHYen")) {
                 currencyType = 3;
-            }else {currencyType=3;}
+            }
             PreparedStatement ps=c.prepareStatement("UPDATE Bank SET balance=?, currency=? WHERE bid=3;");// the bank id is 3
             ps.setDouble(1,balance.getMoney_Num());
             ps.setInt(2,currencyType);
@@ -113,6 +116,7 @@ public class BankDaoImpl implements BankDao {
             c.close();
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
+            System.exit(0);
         }
     }
     

@@ -52,7 +52,15 @@ public class LoanPanel extends JFrame{
 		setContentPane(contentPane);
 		JLabel label = new JLabel("Loan");
 		label.setFont(new Font("", Font.BOLD, 25));
-
+		jr1.setBackground(new Color(248, 248, 255));
+		jr1.setBorderPainted(false);
+		jr1.setFocusPainted(false);
+		jr2.setBackground(new Color(248, 248, 255));
+		jr2.setBorderPainted(false);
+		jr2.setFocusPainted(false);
+		jr3.setBackground(new Color(248, 248, 255));
+		jr3.setBorderPainted(false);
+		jr3.setFocusPainted(false);
         ButtonGroup bg = new ButtonGroup();
         bg.add(jr1);
         bg.add(jr2);
@@ -129,7 +137,6 @@ public class LoanPanel extends JFrame{
         gl_contentPane.setHorizontalGroup(
     			gl_contentPane.createParallelGroup(Alignment.LEADING)
     				.addGroup(gl_contentPane.createSequentialGroup()
-    					.addGap(100)
     					.addComponent(jr1)
     					.addGap(20)
     					.addComponent(jr2)
@@ -155,19 +162,19 @@ public class LoanPanel extends JFrame{
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-					.addGap(10)
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
-						.addGap(50)
-						.addComponent(jr1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-						.addGap(50)
-						.addComponent(jr2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(50)
-						.addComponent(jr3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+					.addGap(50)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 								.addComponent(amountLabel)
 								.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGap(100))
-					.addGap(167))
+
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						
+						.addComponent(jr1)
+						.addGap(50)
+						.addComponent(jr2)
+						.addGap(50)
+						.addComponent(jr3)
+						.addGap(0)))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label))
 					.addGap(30)

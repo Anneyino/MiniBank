@@ -62,13 +62,7 @@ public class ManagerSurface extends JFrame {
 
 		bankOverviewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				InquiryController inquiry = new InquiryController();
-				Bank theBank = inquiry.getTheBank();
-				String balanceStr = theBank.getBalance().toString();
-				String profitStr = theBank.getProfit().toString();
-				JOptionPane.showMessageDialog(null,"total balance:"+balanceStr+"  " +"profit:"+profitStr,"message",JOptionPane.INFORMATION_MESSAGE);
-				
+				dispose();
 				
 			}
 		});

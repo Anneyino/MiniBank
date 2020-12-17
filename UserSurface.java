@@ -44,10 +44,7 @@ public class UserSurface extends JFrame {
 		setResizable(false);
 		setContentPane(contentPane);
 			
-		
-		String loanStr =  customer.getLoan().toString();
-		String customerName = customer.getName();
-		JLabel label = new JLabel("Hello,"+ customerName + "  Loan:"+loanStr); // head label
+		JLabel label = new JLabel("User Surface"); // head label
 		label.setFont(new Font("", Font.BOLD, 25));
 		
 		JButton checkingAccountButton = new JButton("Checking Account");//checking account complete!
@@ -101,11 +98,10 @@ public class UserSurface extends JFrame {
 		transferButton.setFocusPainted(true);
 		transferButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
 				InquiryController inquiryControl = new InquiryController();
 				List<Account> Accountlist = inquiryControl.getAccountOfCustomer(customer.getUid());
 				new ChooseAccountPanel(customer,Accountlist,1).setVisible(true); // 1 means transfer
-				dispose();
 			}
 		});
 		
