@@ -36,18 +36,7 @@ public class UserLoginPanel extends JFrame {
 	public static String userAccount;
 	public static int fileExsist = 0;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserLoginPanel frame = new UserLoginPanel();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	public UserLoginPanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

@@ -29,18 +29,6 @@ public class ChangePassword extends JFrame {
 	private JLabel samePassword;
 
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChangePassword frame = new ChangePassword(new Customer());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public ChangePassword(Customer customer) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

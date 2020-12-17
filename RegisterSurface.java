@@ -33,24 +33,6 @@ public class RegisterSurface extends JFrame
 	private JPasswordField confirmPassword;
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					RegisterSurface frame = new RegisterSurface();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public RegisterSurface() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

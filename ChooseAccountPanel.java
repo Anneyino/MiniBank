@@ -41,25 +41,6 @@ public class ChooseAccountPanel extends JFrame
     private Object[][] rowData = {{"b"}};
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ChooseAccountPanel frame = new ChooseAccountPanel(new Customer(),new ArrayList<>(),1);
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public ChooseAccountPanel(Customer customer,List<Account> accountlist,int transferOrNot) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700,300, 450, 300);

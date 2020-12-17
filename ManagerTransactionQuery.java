@@ -36,24 +36,6 @@ public class ManagerTransactionQuery extends JFrame
     private Object[][] rowData = {{"b"}};
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ManagerTransactionQuery frame = new ManagerTransactionQuery();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public ManagerTransactionQuery() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -64,7 +46,7 @@ public class ManagerTransactionQuery extends JFrame
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		JLabel nameLabel = new JLabel("User Name");
+		JLabel nameLabel = new JLabel("User Uid");
 		nameLabel.setFont(new Font("", Font.PLAIN, 18));
 				
 		JButton queryButton = new JButton("Query");

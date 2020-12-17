@@ -36,25 +36,6 @@ public class UserTransactionQuery extends JFrame
     private Object[][] rowData = {{"b"}};
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					UserTransactionQuery frame = new UserTransactionQuery(new Customer());
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
 	public UserTransactionQuery(Customer customer) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700,300, 450, 300);

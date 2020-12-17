@@ -35,24 +35,6 @@ public class AccountsChart extends JFrame
     private Object[][] rowData = {{"b"}};
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					AccountsChart frame = new AccountsChart();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public AccountsChart() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -169,7 +151,7 @@ public class AccountsChart extends JFrame
 					.addComponent(scrollPane)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cancelButton))
-					.addGap(30)));
+					));
 		contentPane.setLayout(gl_contentPane);
 	}
 	

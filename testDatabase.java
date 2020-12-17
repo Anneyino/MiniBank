@@ -31,8 +31,8 @@ public class testDatabase {
 //			customerdao.addLoan(6, new DigitMoney(10,CHYen.getInstance()));
 //			
 			
-//			ManagerDaoImpl manage = new ManagerDaoImpl();
-//			manage.insert("admin", "admin", "123456");
+			ManagerDaoImpl manage = new ManagerDaoImpl();
+			manage.insert("admin", "admin", "123456");
 	      	
 	      	// public void insert(int uid, int type, DigitMoney balance, java.util.Date startTime)
 	      	

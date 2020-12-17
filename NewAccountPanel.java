@@ -25,25 +25,6 @@ public class NewAccountPanel extends JFrame
 	private Customer currentCustomer;
 
 
-	// Main method to start
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					NewAccountPanel frame = new NewAccountPanel(new Customer());
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Login Panel
@@ -73,7 +54,8 @@ public class NewAccountPanel extends JFrame
 		checkingButton.addActionListener(new ActionListener() 
 		{
 			public void actionPerformed(ActionEvent e) 
-			{
+			{   
+				JOptionPane.showMessageDialog(null,"Successfully apply a new account!","message",JOptionPane.ERROR_MESSAGE);
 				OpenAccountController Accountcontroller = new OpenAccountController();
 				Accountcontroller.openZeroAccount(customer.getUid(), 2);
 			}
@@ -90,7 +72,7 @@ public class NewAccountPanel extends JFrame
 		{
 			
 			public void actionPerformed(ActionEvent e) 
-			{   JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
+			{   JOptionPane.showMessageDialog(null,"Successfully apply a new account!","message",JOptionPane.ERROR_MESSAGE);
 				OpenAccountController Accountcontroller = new OpenAccountController();
 				Accountcontroller.openZeroAccount(customer.getUid(), 1);
 			}

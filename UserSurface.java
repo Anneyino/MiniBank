@@ -22,18 +22,6 @@ public class UserSurface extends JFrame {
 	private static long preMoney = 0;
 	private Customer currentCustomer;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserSurface frame = new UserSurface(new Customer());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public UserSurface(Customer customer) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

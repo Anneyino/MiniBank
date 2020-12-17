@@ -30,24 +30,6 @@ public class ManagerLoginPanel extends JFrame {
 	/**
 	 * start
 	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ManagerLoginPanel frame = new ManagerLoginPanel();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * manager login panel

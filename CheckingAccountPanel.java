@@ -18,18 +18,6 @@ public class CheckingAccountPanel extends JFrame {
 
 	private JPanel contentPane;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CheckingAccountPanel frame = new CheckingAccountPanel(new Customer(), new Account());
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public CheckingAccountPanel(Customer customer, Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
