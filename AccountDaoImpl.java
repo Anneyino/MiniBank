@@ -35,8 +35,8 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
+                	//selectedAccount.calculateCurrentBalance();
+                	//this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -84,8 +84,8 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
+                	//selectedAccount.calculateCurrentBalance();
+                	//this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -132,8 +132,8 @@ public class AccountDaoImpl implements AccountDao {
                 if(type==1){
                 	SavingAccount selectedAccount = new SavingAccount(aid,new DigitMoney(balance,currencyWithRate),(java.util.Date) start_time,0.001);
                 	// calculate saving account's balance after interested.
-                	selectedAccount.calculateCurrentBalance();
-                	this.updateBalance(aid, selectedAccount.getBalance());
+                	//selectedAccount.calculateCurrentBalance();
+                	//this.updateBalance(aid, selectedAccount.getBalance());
                     result.add(selectedAccount);
                 }
                 else {
@@ -198,8 +198,8 @@ public class AccountDaoImpl implements AccountDao {
             rs.close();
             c.close();
             if(result.getType()==1){
-                ((SavingAccount)result).calculateCurrentBalance();
-                this.updateBalance(AID, result.getBalance());
+                //((SavingAccount)result).calculateCurrentBalance();
+                //this.updateBalance(AID, result.getBalance());
             }
         } catch ( Exception e ) {
             System.err.println( e.getClass().getName() + ": " + e.getMessage() );
