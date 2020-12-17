@@ -53,7 +53,15 @@ public class TransferPanel extends JFrame{
 		setContentPane(contentPane);
 		JLabel label = new JLabel("Transfer");
 		label.setFont(new Font("", Font.BOLD, 25));
-
+		jr1.setBackground(new Color(248, 248, 255));
+		jr1.setBorderPainted(false);
+		jr1.setFocusPainted(false);
+		jr2.setBackground(new Color(248, 248, 255));
+		jr2.setBorderPainted(false);
+		jr2.setFocusPainted(false);
+		jr3.setBackground(new Color(248, 248, 255));
+		jr3.setBorderPainted(false);
+		jr3.setFocusPainted(false);
         ButtonGroup bg = new ButtonGroup();
         bg.add(jr1);
         bg.add(jr2);
@@ -174,10 +182,10 @@ public class TransferPanel extends JFrame{
 							.addComponent(targetText))
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 
-						.addGap(100)
-						.addComponent(jr1, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 95, Short.MAX_VALUE)
-						.addComponent(jr2, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(jr3, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addGap(50)
+						.addComponent(jr1)
+						.addComponent(jr2)
+						.addComponent(jr3)
 						.addComponent(amountLabel)
 						.addComponent(amountText, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
 						.addGap(150))
