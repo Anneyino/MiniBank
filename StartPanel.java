@@ -22,7 +22,6 @@ public class StartPanel extends JFrame
 	private JPanel contentPane;
 	public static List<User> info;
 	public static List<User> list = new ArrayList<User>();
-	public static UserFile userFile;
 
 	// Main method to start
 	public static void main(String[] args) 
@@ -49,19 +48,7 @@ public class StartPanel extends JFrame
 	 */
 	public StartPanel() 
 	{
-		userFile = new UserFile();
-		String filePath = System.getProperty("user.dir");
-		filePath+="\\src\\UserInfo.txt";
-		if(new File(filePath).exists() == false)
-		{
-			info = new ArrayList<User>();
-			info.add(new User("123456","123456","123456"));
-			userFile.saveFile(info);
-		}
-		else
-		{
-			StartPanel.list = (List<User>) StartPanel.userFile.printFile();
-		}
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 481, 347);
 		contentPane = new JPanel();

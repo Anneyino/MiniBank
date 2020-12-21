@@ -30,30 +30,12 @@ public class ManagerLoginPanel extends JFrame {
 	/**
 	 * start
 	 */
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ManagerLoginPanel frame = new ManagerLoginPanel();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * manager login panel
 	 */
 	public ManagerLoginPanel() 
-	{
+	{   
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -167,17 +149,23 @@ public class ManagerLoginPanel extends JFrame {
 			this.codePassword = codePassword;
 		}
 		
+		
+		// manager login method
 		public void actionPerformed(ActionEvent e) {
-			if(accountText.getText().equals("@123456") && new String(codePassword.getPassword()).equals("123456"))
-			{
+			String loggingID = accountText.getText();
+			String password = new String(codePassword.getPassword());
+			
+			LoginController logincontroller = new LoginController();
+			int success = logincontroller.LoginForManager(loggingID, password);
+			if(success==1) {
 				dispose();
-				ManagerSurface managerSurface = new ManagerSurface();
-				managerSurface.setVisible(true);
+				ManagerSurface managersurface = new ManagerSurface();
+				managersurface.setVisible(true);
+			}else {
+				JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
 			}
-			else
-			{
-				JOptionPane.showMessageDialog(null,"Wrong password! Please enter again","ERROR",JOptionPane.ERROR_MESSAGE);
-			}
+			
+			
 		}
 	}
 

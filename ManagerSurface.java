@@ -17,18 +17,6 @@ public class ManagerSurface extends JFrame {
 
 	private JPanel contentPane;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ManagerSurface frame = new ManagerSurface();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public ManagerSurface() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -39,14 +27,19 @@ public class ManagerSurface extends JFrame {
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		JButton AccountsButton = new JButton("Accounts Information");
-		AccountsButton.setBackground(new Color(204, 204, 255));
-		AccountsButton.setBorderPainted(true);
-		AccountsButton.setFocusPainted(true);
+		JButton accountsButton = new JButton("Accounts Information");
+		accountsButton.setBackground(new Color(204, 204, 255));
+		accountsButton.setBorderPainted(true);
+		accountsButton.setFocusPainted(true);
 		
-		AccountsButton.addActionListener(new ActionListener() {
+		
+		// go to accounts chart
+		accountsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
+				dispose();
+				AccountsChart accountChart = new AccountsChart();
+				accountChart.setVisible(true);
+				// new NewAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -58,10 +51,29 @@ public class ManagerSurface extends JFrame {
 		bankOverviewButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				InquiryController inquiry = new InquiryController();
+				Bank theBank = inquiry.getTheBank();
+				String balanceStr = theBank.getBalance().toString();
+				String profitStr = theBank.getProfit().toString();
+				JOptionPane.showMessageDialog(null,"total balance:"+balanceStr+"  " +"profit:"+profitStr,"message",JOptionPane.INFORMATION_MESSAGE);
+				
+				
 			}
 		});
 		
-		JButton exitButton = new JButton("Log Out");
+		JButton transButton = new JButton("Transaction Information");
+		transButton.setBackground(new Color(204, 204, 255));
+		transButton.setBorderPainted(true);
+		transButton.setFocusPainted(true);
+		
+		transButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				dispose();
+				new ManagerTransactionQuery().setVisible(true);
+			}
+		});
+		
+		JButton exitButton = new JButton("Log Out"); // complete log out
 		exitButton.setBackground(new Color(255, 239, 213));
 		exitButton.setBorderPainted(true);
 		exitButton.setFocusPainted(true);
@@ -70,8 +82,9 @@ public class ManagerSurface extends JFrame {
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				StartPanel mainFrame = new StartPanel();
-				mainFrame.setVisible(true);
+				ManagerLoginPanel managerLogin = new ManagerLoginPanel();
+				managerLogin.setVisible(true);
+				
 			}
 		});
 		
@@ -82,18 +95,21 @@ public class ManagerSurface extends JFrame {
 					.addGap(130)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
 						.addComponent(exitButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(AccountsButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(transButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(accountsButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
 						.addComponent(bankOverviewButton, Alignment.LEADING, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
 					.addContainerGap(100, Short.MAX_VALUE))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(54)
-					.addComponent(AccountsButton)
-					.addGap(38)
+					.addGap(44)
+					.addComponent(accountsButton)
+					.addGap(28)
 					.addComponent(bankOverviewButton)
-					.addGap(35)
+					.addGap(25)
+					.addComponent(transButton)
+					.addGap(25)
 					.addComponent(exitButton)
 					.addContainerGap(35, Short.MAX_VALUE))
 		);

@@ -29,20 +29,8 @@ public class ChangePassword extends JFrame {
 	private JLabel samePassword;
 
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					ChangePassword frame = new ChangePassword();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	public ChangePassword() {
+	public ChangePassword(Customer customer) {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(700,300, 450, 300);
 		contentPane = new JPanel();
@@ -88,6 +76,8 @@ public class ChangePassword extends JFrame {
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 			}
 		});
 		
@@ -139,7 +129,7 @@ public class ChangePassword extends JFrame {
 		oldPassword.addKeyListener(new PasswordText());
 		newPassword.addKeyListener(new PasswordText());
 		confirmPassword.addKeyListener(new PasswordText());
-		confirmButton.addActionListener(new confirmButtonHandler(oldPassword,newPassword,confirmPassword));
+		confirmButton.addActionListener(new confirmButtonHandler(customer,oldPassword,newPassword,confirmPassword));
 		contentPane.setLayout(gl_contentPane);
 	}
 	
@@ -157,61 +147,88 @@ public class ChangePassword extends JFrame {
 	
 	// confirm listener
 	public class confirmButtonHandler implements ActionListener{
+		private Customer customer;
 		private JPasswordField oldPassword;
 		private JPasswordField newPassword;
 		private JPasswordField confirmPassword;
 		private int sameChar = 0;
 		
-		public confirmButtonHandler(JPasswordField oldPassword,JPasswordField newPassword,JPasswordField confirmPassword) {
+		public confirmButtonHandler(Customer currentCustomer,JPasswordField oldPassword,JPasswordField newPassword,JPasswordField confirmPassword) {
+			this.customer = currentCustomer;
 			this.oldPassword = oldPassword;
 			this.newPassword = newPassword;
 			this.confirmPassword = confirmPassword;
 		}
 		
+		
+		// method for changing password
 		public void actionPerformed(ActionEvent e) {
-			for(int i = 0;i < StartPanel.list.size();i++)
-			{
-				if(UserLoginPanel.userAccount.equals(StartPanel.list.get(i).getLoggingID()))
-				{
-					StringBuilder password = new StringBuilder(StartPanel.list.get(i).getPassword());
-					password.replace(StartPanel.list.get(i).getPassword().length()-1, StartPanel.list.get(i).getPassword().length(), "");
-					if(new String(oldPassword.getPassword()).equals(new String(password.toString())))
-					{
-						if(new String(newPassword.getPassword()).equals(new String(confirmPassword.getPassword())))
-						{
-							sameChar = 0;
-							char[] mimaChar = new String(newPassword.getPassword()).toCharArray();
-							for(int j = 0;j < new String(newPassword.getPassword()).length();j++)
-							{
-								samePassword.setVisible(false);
-								if(mimaChar[j] == mimaChar[0])
-									sameChar++;
-							}
-							System.out.println(sameChar);
-							if(new String(newPassword.getPassword()).equals(new String(oldPassword.getPassword())) || new String(newPassword.getPassword()).length() != 6 || sameChar % 6 == 0)
-							{
-								JOptionPane.showMessageDialog(null,"New password should not be same as the old and must be 6 digits!","ERROR",JOptionPane.ERROR_MESSAGE);
-							}
-							else
-							{
-								dispose();
-								JOptionPane.showMessageDialog(null,"Success!","message",JOptionPane.INFORMATION_MESSAGE);
-								StartPanel.list.get(i).setPassword(new String(newPassword.getPassword())+"0");
-							}
-						}
-						else
-						{
-							samePassword.setVisible(true);
-						}
-					}
-					else
-					{
-						JOptionPane.showMessageDialog(null,"Wrong password!","ERROR",JOptionPane.ERROR_MESSAGE);
-					}
-					break;
+			String oldpassword = new String(oldPassword.getPassword());
+			String newpassword = new String(newPassword.getPassword());
+			String confirmpassword = new String(confirmPassword.getPassword());
+			
+			if(oldpassword.equals(customer.getPassword())) {
+				
+				if(newpassword.equals(confirmpassword)) {
+					
+					LoginController logincontrol = new LoginController();
+					logincontrol.changePassword(customer.getLoggingID(), newpassword);
+					JOptionPane.showMessageDialog(null,"the password has been changed!","message",JOptionPane.ERROR_MESSAGE);
+					
+				}else {
+					JOptionPane.showMessageDialog(null,"the 2 new passwords don't match","message",JOptionPane.ERROR_MESSAGE);
 				}
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"the old password is wrong!","message",JOptionPane.ERROR_MESSAGE);
 			}
-			StartPanel.userFile.saveFile(StartPanel.list);
+			
+			
+			
+			
+//			for(int i = 0;i < StartPanel.list.size();i++)
+//			{
+//				if(UserLoginPanel.userAccount.equals(StartPanel.list.get(i).getLoggingID()))
+//				{
+//					StringBuilder password = new StringBuilder(StartPanel.list.get(i).getPassword());
+//					password.replace(StartPanel.list.get(i).getPassword().length()-1, StartPanel.list.get(i).getPassword().length(), "");
+//					if(new String(oldPassword.getPassword()).equals(new String(password.toString())))
+//					{
+//						if(new String(newPassword.getPassword()).equals(new String(confirmPassword.getPassword())))
+//						{
+//							sameChar = 0;
+//							char[] mimaChar = new String(newPassword.getPassword()).toCharArray();
+//							for(int j = 0;j < new String(newPassword.getPassword()).length();j++)
+//							{
+//								samePassword.setVisible(false);
+//								if(mimaChar[j] == mimaChar[0])
+//									sameChar++;
+//							}
+//							System.out.println(sameChar);
+//							if(new String(newPassword.getPassword()).equals(new String(oldPassword.getPassword())) || new String(newPassword.getPassword()).length() != 6 || sameChar % 6 == 0)
+//							{
+//								JOptionPane.showMessageDialog(null,"New password should not be same as the old and must be 6 digits!","ERROR",JOptionPane.ERROR_MESSAGE);
+//							}
+//							else
+//							{
+//								dispose();
+//								JOptionPane.showMessageDialog(null,"Success!","message",JOptionPane.INFORMATION_MESSAGE);
+//								StartPanel.list.get(i).setPassword(new String(newPassword.getPassword())+"0");
+//							}
+//						}
+//						else
+//						{
+//							samePassword.setVisible(true);
+//						}
+//					}
+//					else
+//					{
+//						JOptionPane.showMessageDialog(null,"Wrong password!","ERROR",JOptionPane.ERROR_MESSAGE);
+//					}
+//					break;
+//				}
+//			}
+//			StartPanel.userFile.saveFile(StartPanel.list);
 		}
 	}
 }

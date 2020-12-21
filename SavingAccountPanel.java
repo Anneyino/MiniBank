@@ -22,7 +22,7 @@ public class SavingAccountPanel extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					SavingAccountPanel frame = new SavingAccountPanel();
+					SavingAccountPanel frame = new SavingAccountPanel(new Customer(), new Account());
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -31,7 +31,7 @@ public class SavingAccountPanel extends JFrame {
 		});
 	}
 
-	public SavingAccountPanel() {
+	public SavingAccountPanel(Customer customer,Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -49,9 +49,20 @@ public class SavingAccountPanel extends JFrame {
 		seekButton.setBorderPainted(true);
 		seekButton.setFocusPainted(true);
 
+		
+		// query method for saving account
 		seekButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog();
+				
+				
+				String balanceStr = account.getBalance().toString();
+				
+				String message = "The balance is "+ balanceStr;
+				
+				JOptionPane.showMessageDialog(null,message);
+			
+			
+			
 			}
 		});
 		
@@ -60,9 +71,13 @@ public class SavingAccountPanel extends JFrame {
 		storeButton.setBorderPainted(true);
 		storeButton.setFocusPainted(true);
 
+		
+		// store for saving account
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,1);//1 means save money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});
@@ -72,9 +87,14 @@ public class SavingAccountPanel extends JFrame {
 		takeButton.setForeground(new Color(0, 0, 0));
 		takeButton.setBorderPainted(true);
 		takeButton.setFocusPainted(true);
+		
+		// withdraw method for saving account
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
+			   
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,2);//2 means withdraw money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});
@@ -88,8 +108,8 @@ public class SavingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				StartPanel mainFrame = new StartPanel();
-				mainFrame.setVisible(true);
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 							
 			}
 		});

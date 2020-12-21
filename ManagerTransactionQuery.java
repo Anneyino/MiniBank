@@ -24,6 +24,7 @@ import javax.swing.JTextField;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class ManagerTransactionQuery extends JFrame 
@@ -35,24 +36,6 @@ public class ManagerTransactionQuery extends JFrame
     private Object[][] rowData = {{"b"}};
 
 
-	public static void main(String[] args) 
-	{
-		EventQueue.invokeLater(new Runnable() 
-		{
-			public void run() 
-			{
-				try 
-				{
-					ManagerTransactionQuery frame = new ManagerTransactionQuery();
-					frame.setVisible(true);
-				} 
-				catch (Exception e) 
-				{
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	public ManagerTransactionQuery() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -63,7 +46,7 @@ public class ManagerTransactionQuery extends JFrame
 		setResizable(false);
 		setContentPane(contentPane);
 		
-		JLabel nameLabel = new JLabel("User Name");
+		JLabel nameLabel = new JLabel("User Uid");
 		nameLabel.setFont(new Font("", Font.PLAIN, 18));
 				
 		JButton queryButton = new JButton("Query");
@@ -76,6 +59,70 @@ public class ManagerTransactionQuery extends JFrame
 		name.setOpaque(false);
 		
 		
+		// manager query by enter user's name
+		queryButton.addActionListener(new ActionListener()
+				{
+
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						// TODO Auto-generated method stub
+						
+						String uid_str = name.getText();
+						int uid = Integer.valueOf(uid_str);
+						
+						TransactionController transactionControl = new TransactionController();
+						
+						List<Transaction> transactionlist =  transactionControl.showCustomerTransactions(uid);
+						
+                            if(!transactionlist.isEmpty()) {
+							
+							String[][] transaction_attrs =  new String[transactionlist.size()][4];
+							
+							for(int i =0; i < transactionlist.size();i++) {
+								
+								for(int j = 0; j<4 ;j++) {
+									
+									Transaction a_transaction =  transactionlist.get(i);
+									
+									if(j==0) {
+										transaction_attrs[i][j] = String.valueOf(a_transaction.getStartAccount().getAccountId());
+									}else if(j==1) {
+										transaction_attrs[i][j] = String.valueOf(a_transaction.getReceiveAccount().getAccountId());
+									}else if(j==2) {
+										transaction_attrs[i][j] = a_transaction.getMoney().toString();
+									}else if(j==3) {
+										transaction_attrs[i][j] = a_transaction.getTime().toString();
+
+									}
+									
+									
+								}
+								
+							}
+							table.setModel(new DefaultTableModel(
+									transaction_attrs,
+									new String[] {
+										"from account", "to account", "money", "date"
+									}
+								) 
+										);
+							
+							
+						}else {
+							table.setModel(new DefaultTableModel(
+									new Object[][] {
+									},
+									new String[] {
+										"from account", "to account", "money", "date"
+									}
+								) 
+										);
+						}
+						
+					}
+					
+				});
+		
 		JButton cancelButton = new JButton("Cancel");
 		cancelButton.setBackground(new Color(245, 222, 179));
 		cancelButton.setBorderPainted(true);
@@ -83,6 +130,8 @@ public class ManagerTransactionQuery extends JFrame
 		cancelButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				dispose();
+				ManagerSurface mainFrame = new ManagerSurface();
+				mainFrame.setVisible(true);
 			}
 		});
 		
@@ -91,14 +140,20 @@ public class ManagerTransactionQuery extends JFrame
 		table.setPreferredScrollableViewportSize(new Dimension(400, 300));
 		table.setBackground(new Color(250, 235, 215));
 		table.setFont(new Font("", Font.PLAIN, 16));
+		
+		
+		
 		table.setModel(new DefaultTableModel(
-			new Object[][] {
-			},
-			new String[] {
-				"1", "2", "3", "4", "5", "6"
-			}
-		) 
-				);
+				new Object[][] {
+				},
+				new String[] {
+					"from account", "to account", "money", "date"
+				}
+			) 
+					);
+		
+		
+		//
 		scrollPane.setViewportView(table);
 
 		
@@ -131,7 +186,6 @@ public class ManagerTransactionQuery extends JFrame
 						.addComponent(name, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 						.addComponent(nameLabel))
 					.addComponent(scrollPane)
-					.addGap(150)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(cancelButton))
 					.addGap(30)));

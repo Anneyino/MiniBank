@@ -36,18 +36,7 @@ public class UserLoginPanel extends JFrame {
 	public static String userAccount;
 	public static int fileExsist = 0;
 	
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					UserLoginPanel frame = new UserLoginPanel();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+
 
 	public UserLoginPanel() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -94,6 +83,7 @@ public class UserLoginPanel extends JFrame {
 		{
 			public void actionPerformed(ActionEvent e) 
 			{
+				dispose();
 				RegisterSurface registerSurface = new RegisterSurface();
 				registerSurface.setVisible(true);
 			}
@@ -114,7 +104,9 @@ public class UserLoginPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) 
 			{
 				dispose();
-				new StartPanel().setVisible(true);
+				StartPanel startingpanel = new StartPanel();
+				startingpanel.setVisible(true);
+				// new NewAccountPanel().setVisible(true);
 			}
 		});
 		
@@ -179,70 +171,89 @@ public class UserLoginPanel extends JFrame {
 			this.password = password;
 		}
 		
+		
+		// login method
 		public void actionPerformed(ActionEvent e) {
-			StartPanel.list = (List<User>) StartPanel.userFile.printFile();
-			int accountNum = 0;
-			int passwordNum = 0;
-			String passwordStr = new String(password.getPassword());
-			StringBuilder password = null;
 			
-			for(int i = 0;i < StartPanel.list.size();i++)
-			{
-				if(accountText.getText().equals(StartPanel.list.get(i).getLoggingID()))
-				{
-					userAccount = accountText.getText();
-					accountNum++;
-					break;
-				}
-			}
-			if(accountNum == 0)//user not exist
-			{
-				JOptionPane.showMessageDialog(null,"Can't find this user","ERROR",JOptionPane.ERROR_MESSAGE);
-			}
-			if(accountNum == 1)//user exist
-			{
-				for(int i = 0;i < StartPanel.list.size();i++)//check password
-				{
-					if(userAccount.equals(StartPanel.list.get(i).getLoggingID()))//find user
-					{
-						password = new StringBuilder(StartPanel.list.get(i).getPassword());
-						password.replace(StartPanel.list.get(i).getPassword().length()-1, StartPanel.list.get(i).getPassword().length(), "");
-						if(passwordStr.equals(new String(password.toString())))//correct password
-						{
-							passwordNum++;
-							break;
-						}
-						else //wrong password
-						{
-							if(passwordRestNum == 1)
-							{
-								JOptionPane.showMessageDialog(null,"You have entered 3 times! Exit!","message",JOptionPane.ERROR_MESSAGE);
-								dispose();
-								StartPanel mainFrame = new StartPanel();
-								mainFrame.setVisible(true);
-							}
-							if(passwordRestNum != 1)
-							{
-								JOptionPane.showMessageDialog(null,"Wrong password! Remain enter time: "+(--passwordRestNum),"message",JOptionPane.ERROR_MESSAGE);
-								if(passwordStr.equals(new String(password.toString())))
-								{
-									passwordNum++;
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
+			String loggingID = this.accountText.getText();
+			String passwardStr = new String(password.getPassword());
 			
-			if(accountNum == 1 && passwordNum == 1)//all correct, enter user surfaces
-			{
-				userAccount = accountText.getText();
+			LoginController loginController = new LoginController();
+			Customer currentCustomer = loginController.Login(loggingID, passwardStr);
+			
+			if(currentCustomer!=null) {
 				dispose();
-				JOptionPane.showMessageDialog(null,"login success","message",JOptionPane.INFORMATION_MESSAGE);
-				UserSurface userFrame = new UserSurface();
+				UserSurface userFrame = new UserSurface(currentCustomer);
 				userFrame.setVisible(true);
+				
+			}else {
+				JOptionPane.showMessageDialog(null,"the ID and password don't match!","message",JOptionPane.ERROR_MESSAGE);
 			}
+			
+			
+			// StartPanel.list = (List<User>) StartPanel.userFile.printFile();
+//			int accountNum = 0;
+//			int passwordNum = 0;
+//			String passwordStr = new String(password.getPassword());
+//			StringBuilder password = null;
+//			
+//			for(int i = 0;i < StartPanel.list.size();i++)
+//			{
+//				if(accountText.getText().equals(StartPanel.list.get(i).getLoggingID()))
+//				{
+//					userAccount = accountText.getText();
+//					accountNum++;
+//					break;
+//				}
+//			}
+//			if(accountNum == 0)//user not exist
+//			{
+//				JOptionPane.showMessageDialog(null,"Can't find this user","ERROR",JOptionPane.ERROR_MESSAGE);
+//			}
+//			if(accountNum == 1)//user exist
+//			{
+//				for(int i = 0;i < StartPanel.list.size();i++)//check password
+//				{
+//					if(userAccount.equals(StartPanel.list.get(i).getLoggingID()))//find user
+//					{
+//						password = new StringBuilder(StartPanel.list.get(i).getPassword());
+//						password.replace(StartPanel.list.get(i).getPassword().length()-1, StartPanel.list.get(i).getPassword().length(), "");
+//						if(passwordStr.equals(new String(password.toString())))//correct password
+//						{
+//							passwordNum++;
+//							break;
+//						}
+//						else //wrong password
+//						{
+//							if(passwordRestNum == 1)
+//							{
+//								JOptionPane.showMessageDialog(null,"You have entered 3 times! Exit!","message",JOptionPane.ERROR_MESSAGE);
+//								dispose();
+//								StartPanel mainFrame = new StartPanel();
+//								mainFrame.setVisible(true);
+//							}
+//							if(passwordRestNum != 1)
+//							{
+//								JOptionPane.showMessageDialog(null,"Wrong password! Remain enter time: "+(--passwordRestNum),"message",JOptionPane.ERROR_MESSAGE);
+//								if(passwordStr.equals(new String(password.toString())))
+//								{
+//									passwordNum++;
+//									break;
+//								}
+//							}
+//						}
+//					}
+//				}
+//			}
+//			
+//			if(accountNum == 1 && passwordNum == 1)//all correct, enter user surfaces
+//			{
+//				userAccount = accountText.getText();
+//				dispose();
+//				JOptionPane.showMessageDialog(null,"login success","message",JOptionPane.INFORMATION_MESSAGE);
+//				UserSurface userFrame = new UserSurface();
+//				userFrame.setVisible(true);
+//			}
 		}
 	}
 }

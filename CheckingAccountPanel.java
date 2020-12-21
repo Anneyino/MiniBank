@@ -18,20 +18,8 @@ public class CheckingAccountPanel extends JFrame {
 
 	private JPanel contentPane;
 
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					CheckingAccountPanel frame = new CheckingAccountPanel();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
-	public CheckingAccountPanel() {
+	public CheckingAccountPanel(Customer customer, Account account) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(700, 300, 450, 300);
 		contentPane = new JPanel();
@@ -49,9 +37,25 @@ public class CheckingAccountPanel extends JFrame {
 		seekButton.setBorderPainted(true);
 		seekButton.setFocusPainted(true);
 
+		
+		// query method
 		seekButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog();
+				
+				
+				
+				
+				
+                String balanceStr = account.getBalance().toString();
+				
+				String message = "The balance is "+ balanceStr;
+				
+				JOptionPane.showMessageDialog(null,message);
+			
+			
+			
+			
+			
 			}
 		});
 		
@@ -62,8 +66,9 @@ public class CheckingAccountPanel extends JFrame {
 
 		storeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "store currency", JOptionPane.INFORMATION_MESSAGE);
-				
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,1);//1 means save money
+				storeWithdraw.setVisible(true);
 			}
 		});
 		
@@ -74,7 +79,9 @@ public class CheckingAccountPanel extends JFrame {
 		takeButton.setFocusPainted(true);
 		takeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				String cash = JOptionPane.showInputDialog(null, "Input currency amount", "withdraw currency", JOptionPane.INFORMATION_MESSAGE);
+				dispose();
+				StoreWithdrawPanel storeWithdraw = new StoreWithdrawPanel(customer,account,2);//2 means withdraw money
+				storeWithdraw.setVisible(true);
 				
 			}
 		});
@@ -88,8 +95,8 @@ public class CheckingAccountPanel extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 				
 				dispose();
-				StartPanel mainFrame = new StartPanel();
-				mainFrame.setVisible(true);
+				UserSurface usersurface = new UserSurface(customer);
+				usersurface.setVisible(true);
 							
 			}
 		});

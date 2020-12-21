@@ -37,7 +37,7 @@ public class DigitMoney {
 		double num_before = this.getMoney_Num();
 		double num_after;
 		// compute the money num after exchange
-		num_after = num_before*targetCurrency.getRate()/this.getCurrency().getRate(); 
+		num_after = num_before*this.getCurrency().getRate()/targetCurrency.getRate();
 		
 		this.setMoney_Num(num_after);
 		this.setCurrency(targetCurrency);
@@ -61,5 +61,23 @@ public class DigitMoney {
 			success = 0;
 		}
 		return success;
+	}
+	
+	public String toString() {
+		
+//		String num = String.valueOf(money_num);
+		
+		String num = String.format("%.1f", money_num);
+		
+		if(this.getCurrency() instanceof CHYen) {
+			num = "Y"+num; 
+		}else if(this.getCurrency() instanceof USDollar) {
+			num = "$"+num;
+		}else if(this.getCurrency() instanceof EuroDollar) {
+			num = "E"+num;
+		}
+		
+		return num;
+		
 	}
 }

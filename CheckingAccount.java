@@ -29,7 +29,7 @@ public class CheckingAccount extends Account{
 		// first need to charge for service fee
 		double start_money_num = money.getMoney_Num(); 
 		double service = money.getMoney_Num()*this.service_fee;
-		money.setMoney_Num(start_money_num-service);
+		money.setMoney_Num(start_money_num+service);
 		// then withdraw it from balance
 		int success = this.getBalance().decrease(money);
 		
